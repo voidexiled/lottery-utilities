@@ -6,12 +6,12 @@ export const LeftBar = () => {
     <Box
       as="aside"
       h="full"
+      position="relative"
+      zIndex={3}
       sx={{
         background: "var(--night)",
       }}
-      borderRight={
-        "1px solid rgba(255,255,255,0.3)"
-      }
+      borderRight={"1px solid rgba(255,255,255,0.3)"}
       pl={12}
       pr={6}
       py={4}

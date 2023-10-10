@@ -6,6 +6,6 @@ export const TOOLS = {
 
   STANDARD_GENERATE: {
     id: 1,
-    name: "Generador de tablas estandar",
+    name: "Generador estandar automatico",
   },
 };

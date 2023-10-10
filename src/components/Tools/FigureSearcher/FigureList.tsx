@@ -1,22 +1,10 @@
-import {
-  Box,
-  Card,
-  Grid,
-  Image,
-} from "@chakra-ui/react";
+import { Box, Card, Grid, Image } from "@chakra-ui/react";
 import { useFigureStore } from "../../../store/figures";
-import {
-  AnimatePresence,
-  motion,
-} from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 export const FigureList = () => {
-  const figures = useFigureStore(
-    (state) => state.figures
-  );
-  const setFigure = useFigureStore(
-    (state) => state.setFigure
-  );
+  const figures = useFigureStore((state) => state.figures);
+  const setFigure = useFigureStore((state) => state.setFigure);
 
   const figuresToList = figures;
 
@@ -36,11 +24,9 @@ export const FigureList = () => {
         maxH="calc(100vh - 150px - 80px)"
         className="thegrid"
       >
-        {figuresToList.map((figure) =>
-          figure.id > 20 ? (
-            <AnimatePresence
-              key={figure.id}
-            >
+        {figuresToList.map((figure, index) =>
+          index < 20 ? (
+            <AnimatePresence key={figure.id}>
               <Card
                 as={motion.li}
                 bg="none"
@@ -53,11 +39,9 @@ export const FigureList = () => {
                   filter: "saturate(1)",
                 }}
                 whileHover={{
-                  backgroundColor:
-                    "rgba(255,255,255,0.15)",
+                  backgroundColor: "rgba(255,255,255,0.15)",
                   cursor: "pointer",
-                  filter:
-                    "saturate(0.6)",
+                  filter: "saturate(0.6)",
                 }}
                 animate={{
                   opacity: 1,

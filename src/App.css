@@ -1,10 +1,10 @@
 .thegrid {
-
+  scroll-behavior: smooth;
 }
 
 .thegrid::-webkit-scrollbar {
   height: 12px;
-  width: 12px;
+  width: 8px;
 }
 
 .thegrid::-webkit-scrollbar-thumb,
@@ -19,12 +19,38 @@
 
 .thegrid::-webkit-scrollbar-thumb {
   background: rgba(255,255,255,0.3);
-  border: #131719 3px solid;
+border: none !important;
   
 }
 
 .thegrid::-webkit-scrollbar-track {
-margin-top: 20px !important;
-margin-bottom: 25px !important;
+
+  
+}
+
+.viewerGrid{
+  scroll-behavior: smooth;
+}
+
+.viewerGrid::-webkit-scrollbar {
+  height: 12px;
+  width: 8px;
+
+}
+
+
+
+.viewerGrid::-webkit-scrollbar-thumb,
+.viewerGrid::-webkit-scrollbar-track {
+  border-radius: 92px;
+  -webkit-border-radius: 92px;
+  -moz-border-radius: 92px;
+  -ms-border-radius: 92px;
+  -o-border-radius: 92px;
+
+}
+.viewerGrid::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+border: none !important;
   
 }

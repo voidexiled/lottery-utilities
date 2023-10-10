@@ -4,17 +4,14 @@ import { TOOLS } from "../constants/Tools";
 import { FigureSearcherTool } from "./Tools/FigureSearcher/FigureSearcherTool";
 
 export const Tool = () => {
-  const tool = useToolsStore(
-    (state) => state.tool
-  );
+  const tool = useToolsStore((state) => state.tool);
   useEffect(() => {
-    console.info(tool);
+    console.info(tool.name);
   });
 
   if (tool === TOOLS.FIGURE_SEARCHER)
     return <FigureSearcherTool />;
-  if (tool === TOOLS.STANDARD_GENERATE)
-    return <></>;
+  if (tool === TOOLS.STANDARD_GENERATE) return <></>;
 
   return <></>;
 };

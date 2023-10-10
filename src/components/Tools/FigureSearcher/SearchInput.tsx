@@ -1,19 +1,11 @@
-import {
-  Input,
-  InputGroup,
-  InputLeftElement,
-} from "@chakra-ui/react";
+import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { IconSearch } from "@tabler/icons-react";
 import { useFigureStore } from "../../../store/figures";
 
 export const SearchInput = () => {
-  const setFigures = useFigureStore(
-    (state) => state.setFigures
-  );
+  const setFigures = useFigureStore((state) => state.setFigures);
 
-  const fullFigures = useFigureStore(
-    (state) => state.fullFigures
-  );
+  const fullFigures = useFigureStore((state) => state.fullFigures);
   return (
     <InputGroup size="sm">
       <InputLeftElement pointerEvents="none">
@@ -28,13 +20,12 @@ export const SearchInput = () => {
         onChange={(e) => {
           const value = e.target.value;
           if (value.length > 0) {
-            const newList = fullFigures.filter(
-              (fig) =>
-                fig.name
-                  .toLowerCase()
-                  .includes(
-                    value.toLowerCase()
-                  )
+            const newList = fullFigures.filter((fig) =>
+              fig.name
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/\p{Diacritic}/gu, "")
+                .includes(value.toLowerCase())
             );
             setFigures(newList);
           } else {

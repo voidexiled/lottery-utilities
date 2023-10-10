@@ -8,3 +8,17 @@ export type Figure = {
   name: string;
   src: string;
 };
+
+export type Mode = {
+  id: number;
+  name: string;
+};
+
+export type Table = {
+  id: number;
+  name: string;
+  numbers: number[[]];
+  date: string;
+  size: number;
+  comodin?: number;
+};

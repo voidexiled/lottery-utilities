@@ -5,14 +5,11 @@ import { TOOLS } from "../constants/Tools";
 type State = {
   tools: Tool[];
   tool: Tool;
-  setTool: (tool: Tool) => void;
+  setTool: (tool: Tool | undefined) => void;
 };
 
-export const useToolsStore =
-  create<State>((set) => {
-    return {
-      tools: Object.values(TOOLS),
-      tool: TOOLS.FIGURE_SEARCHER,
-      setTool: (tool) => set({ tool }),
-    };
-  });
+export const useToolsStore = create<State>((set) => ({
+  tools: Object.values(TOOLS),
+  tool: Object.values(TOOLS)[0],
+  setTool: (tool) => set({ tool }),
+}));

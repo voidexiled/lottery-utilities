@@ -7,21 +7,13 @@ type State = {
   figures: Figure[];
   figure: Figure;
   setFigure: (figure: Figure) => void;
-  setFigures: (
-    figures: Figure[]
-  ) => void;
+  setFigures: (figures: Figure[]) => void;
 };
 
-export const useFigureStore =
-  create<State>((set) => {
-    return {
-      fullFigures:
-        Object.values(FIGURES),
-      figures: Object.values(FIGURES),
-      figure: FIGURES.EL_GALLO,
-      setFigure: (figure) =>
-        set({ figure }),
-      setFigures: (figures) =>
-        set({ figures }),
-    };
-  });
+export const useFigureStore = create<State>((set) => ({
+  fullFigures: Object.values(FIGURES),
+  figures: Object.values(FIGURES),
+  figure: FIGURES.EL_GALLO,
+  setFigure: (figure) => set({ figure }),
+  setFigures: (figures) => set({ figures }),
+}));
