@@ -4,7 +4,9 @@ import { AnimatePresence, motion } from "framer-motion";
 
 export const FigureList = () => {
   const figures = useFigureStore((state) => state.figures);
-  const setFigure = useFigureStore((state) => state.setFigure);
+  const setFigure = useFigureStore(
+    (state) => state.setFigure
+  );
 
   const figuresToList = figures;
 

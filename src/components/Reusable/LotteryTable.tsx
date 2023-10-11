@@ -145,7 +145,7 @@ export const LotteryTable = ({
               return (
                 <Image
                   key={`${index}`}
-                  src={finalSrc}
+                  src={figure?.src}
                   alt={figure?.name}
                   objectFit="cover"
                   border="1px solid black"
@@ -209,7 +209,7 @@ export const LotteryTable = ({
                 <Image
                   as={motion.img}
                   key={pKey}
-                  src={finalSrc}
+                  src={figure?.src}
                   alt={figure?.name}
                   objectFit="cover"
                   border="1px solid black"
