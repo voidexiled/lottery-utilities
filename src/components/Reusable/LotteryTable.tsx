@@ -140,7 +140,7 @@ export const LotteryTable = ({
                 imageSrc?.push("thumb");
                 imageSrc?.push(img);
               }
-              const finalSrc = imageSrc?.join("/");
+              //const finalSrc = imageSrc?.join("/");
 
               return (
                 <Image
@@ -200,7 +200,7 @@ export const LotteryTable = ({
                 imageSrc?.push("thumb");
                 imageSrc?.push(img);
               }
-              const finalSrc = imageSrc?.join("/");
+              //const finalSrc = imageSrc?.join("/");
               const flatId = index;
 
               const pKey = `${selectedTable.id}-${index}`;
