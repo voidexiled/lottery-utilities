@@ -56,13 +56,15 @@ export const StandardGenerateTool = () => {
   };
 
   const handleGenerate = () => {
-    const sizeInput = document.getElementById("sizeInput");
+    const sizeInput = document.getElementById(
+      "sizeInput"
+    ) as HTMLInputElement;
     const cantidadInput = document.getElementById(
       "cantidadTablasInput"
-    );
+    ) as HTMLInputElement;
     const comodinInput = document.getElementById(
       "comodinInput"
-    );
+    ) as HTMLSelectElement;
     const withComodin =
       comodinInput?.getAttribute("disabled") === null;
 
@@ -335,10 +337,11 @@ export const StandardGenerateTool = () => {
               id="cantidadTablasInput"
               placeholder="25"
               borderColor="messenger.500"
-              focusBorderColor="messenger.600"
+              _focus={{
+                borderColor: "messenger.600",
+              }}
               _hover={{
-                borderColor:
-                  "var(--chakra-colors-messenger-700);",
+                borderColor: "messenger.700",
               }}
             />
             <NumberInputStepper>
@@ -374,10 +377,11 @@ export const StandardGenerateTool = () => {
               id="sizeInput"
               placeholder="4"
               borderColor="messenger.500"
-              focusBorderColor="messenger.600"
+              _focus={{
+                borderColor: "messenger.600",
+              }}
               _hover={{
-                borderColor:
-                  "var(--chakra-colors-messenger-700);",
+                borderColor: "messenger.700",
               }}
             />
             <NumberInputStepper>
