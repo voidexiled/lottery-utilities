@@ -59,11 +59,13 @@ export const Viewer = () => {
             }}
           >
             {tables &&
-              tables.map((table) => {
+              tables.reverse().map((t, index) => {
+                console.log(t);
                 return (
                   <LotteryTable
-                    key={(table.id as unknown) as string}
-                    table={table}
+                    key={index}
+                    ind={(t.id as unknown) as string}
+                    table={t}
                     thumb
                   />
                 );
@@ -113,6 +115,9 @@ export const Viewer = () => {
             {selectedTable ? (
               <LotteryTable
                 key={
+                  (selectedTable.id as unknown) as string
+                }
+                ind={
                   (selectedTable.id as unknown) as string
                 }
                 table={selectedTable}

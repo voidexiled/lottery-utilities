@@ -2,12 +2,14 @@
 
 * {
   box-sizing: border-box;
+  
 }
 
 :root {
   font-family: 'Open Sans', sans-serif;
   font-size: 18px; 
 
+  
   --dark: #242424;
   --light: #D9DAD8;
   --white: #FFFFFF;
@@ -20,16 +22,16 @@
   --mint-cream: #f3f7f0ff;
   --purple-pizzazz: #f65be3ff;
 
-  color: rgba(255, 255, 255, 0.87);
+  
   background-color: var(--light);
-
+  
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-
-
+  
+  
 }
 
 #root {

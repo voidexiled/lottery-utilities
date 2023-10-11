@@ -4,7 +4,7 @@ import {
   Select,
   Text,
 } from "@chakra-ui/react";
-import { IconPlus } from "@tabler/icons-react";
+import { IconPlus, IconTrash } from "@tabler/icons-react";
 import { Logo } from "./Logo";
 import { generateRandomMatrix } from "../features/tables/generateRandomMatrix";
 import { useTablesStore } from "../store/tables";
@@ -15,6 +15,9 @@ export const NavBar = () => {
   const setTool = useToolsStore((state) => state.setTool);
   const tools = useToolsStore((state) => state.tools);
   const tables = useTablesStore((state) => state.tables);
+  const removeTables = useTablesStore(
+    (state) => state.removeTables
+  );
   const addTable = useTablesStore(
     (state) => state.addTable
   );
@@ -39,6 +42,7 @@ export const NavBar = () => {
       <Logo />
       <Box>
         <Select
+          defaultValue={tools[0].name}
           size="xs"
           variant="outline"
           onChange={(
@@ -52,7 +56,6 @@ export const NavBar = () => {
           {tools.map((t: Tool, index: number) => {
             return (
               <option
-                selected={index == 0}
                 key={`tool-${index}`}
                 value={`${t.name}`}
                 style={{
@@ -75,7 +78,17 @@ export const NavBar = () => {
           }}
           bg="none"
         ></Button> */}
-
+        <Button
+          size={"sm"}
+          colorScheme="red"
+          rightIcon={<IconTrash></IconTrash>}
+          onClick={() => {
+            removeTables();
+          }}
+          mr={4}
+        >
+          Borrar tablas
+        </Button>
         <Button
           size={"sm"}
           colorScheme="pink"

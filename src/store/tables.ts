@@ -10,19 +10,32 @@ type State = {
   setSelectedTable: (table: Table | null) => void;
   addTable: () => void;
   setTable: (table: Table) => void;
+  setTables: (tables: Table[]) => void;
   removeTable: (id: number) => void;
+  removeTables: () => void;
 };
 
-const generateTable = () => {
+const generateTable = (tables: Table[]) => {
   const matrix = generateRandomMatrix(4, 1, 54, 0);
+  let lastIndex = 0;
+  if (tables[0]) {
+    lastIndex = tables[tables.length - 1].id + 1;
+  }
   const table = {
-    id: data.length + 1,
-    name: `Table${data.length}`,
+    id: lastIndex,
+    name: `Table${lastIndex}`,
     numbers: matrix,
     date: new Date().toISOString(),
     size: 4,
   };
   return table;
+};
+
+const concatTables = (
+  oldTables: Table[],
+  newTables: Table[]
+) => {
+  return [...oldTables, ...newTables];
 };
 
 export const useTablesStore = create<State>((set) => ({
@@ -32,7 +45,10 @@ export const useTablesStore = create<State>((set) => ({
     set(() => ({ selectedTable: table })),
   addTable: () => {
     set((state) => ({
-      tables: [...state.tables, generateTable()],
+      tables: [
+        ...state.tables,
+        generateTable(state.tables),
+      ],
     }));
   },
   setTable: (table) => {
@@ -42,11 +58,21 @@ export const useTablesStore = create<State>((set) => ({
       ),
     }));
   },
+  setTables: (tables) => {
+    set((state) => ({
+      tables: concatTables(state.tables, tables),
+    }));
+  },
   removeTable: (id) => {
     set((state) => ({
       tables: state.tables.filter(
         (table) => table.id !== id
       ),
+    }));
+  },
+  removeTables: () => {
+    set(() => ({
+      tables: [],
     }));
   },
 }));

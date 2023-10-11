@@ -54,3 +54,24 @@ border: none !important;
 border: none !important;
   
 }
+
+.customScrollBar::-webkit-scrollbar{
+  height: 12px;
+  width: 8px;
+}
+
+
+.customScrollBar::-webkit-scrollbar-thumb,
+.customScrollBar::-webkit-scrollbar-track {
+  border-radius: 92px;
+  -webkit-border-radius: 92px;
+  -moz-border-radius: 92px;
+  -ms-border-radius: 92px;
+  -o-border-radius: 92px;
+
+}
+.customScrollBar::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.3);
+border: none !important;
+  
+}

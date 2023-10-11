@@ -8,16 +8,19 @@ import { useTablesStore } from "../../store/tables";
 import { useEffect, useState } from "react";
 
 export const LotteryTable = ({
-  key,
+  ind,
   table,
   thumb,
 }: {
-  key: string;
+  ind: string;
   table: Table;
   thumb?: boolean;
 }) => {
   const selectedTable = useTablesStore(
     (state) => state.selectedTable
+  );
+  const removeTable = useTablesStore(
+    (state) => state.removeTable
   );
   const tables = useTablesStore((state) => state.tables);
   const setSelectedTable = useTablesStore(
@@ -58,7 +61,7 @@ export const LotteryTable = ({
     return (
       <Box
         as={motion.li}
-        key={key}
+        key={ind}
         w={{
           base: baseTableSize,
           md: mdTableSize,
@@ -106,6 +109,9 @@ export const LotteryTable = ({
           e.preventDefault();
           if (e.button == 2) {
             console.log("RightClick");
+            console.log(table);
+            console.log(table.id);
+            removeTable(table.id);
           }
         }}
         onClick={() => {
@@ -122,33 +128,35 @@ export const LotteryTable = ({
           h="full"
           boxSizing="border-box"
         >
-          {table.numbers.flat().map((number: number) => {
-            const figure = figures.find(
-              (fig) => fig.id === number
-            );
-            const imageSrc = figure?.src.split("/");
-            const img = imageSrc?.pop();
-            if (imageSrc && img) {
-              imageSrc?.push("thumb");
-              imageSrc?.push(img);
-            }
-            const finalSrc = imageSrc?.join("/");
+          {table.numbers
+            .flat()
+            .map((number: number, index: number) => {
+              const figure = figures.find(
+                (fig) => fig.id === number
+              );
+              const imageSrc = figure?.src.split("/");
+              const img = imageSrc?.pop();
+              if (imageSrc && img) {
+                imageSrc?.push("thumb");
+                imageSrc?.push(img);
+              }
+              const finalSrc = imageSrc?.join("/");
 
-            return (
-              <Image
-                key={number}
-                src={finalSrc}
-                alt={figure?.name}
-                objectFit="cover"
-                border="1px solid black"
-                w="full"
-                h="full"
-                draggable="false"
-                loading="lazy"
-                sx={{ imageResolution: "80dpi" }}
-              />
-            );
-          })}
+              return (
+                <Image
+                  key={`${index}`}
+                  src={finalSrc}
+                  alt={figure?.name}
+                  objectFit="cover"
+                  border="1px solid black"
+                  w="full"
+                  h="full"
+                  draggable="false"
+                  loading="lazy"
+                  sx={{ imageResolution: "80dpi" }}
+                />
+              );
+            })}
         </SimpleGrid>
       </Box>
     );
@@ -157,7 +165,7 @@ export const LotteryTable = ({
     return (
       <Box
         as={motion.li}
-        key={key}
+        key={ind}
         w={{
           base: lgTableSize,
           xl: xxxlTableSize,
@@ -209,15 +217,45 @@ export const LotteryTable = ({
                   h="full"
                   draggable="false"
                   loading="lazy"
+                  // initial={{
+                  //   filter: "grayscale(0)",
+                  //   border: "1px solid #000",
+                  // }}
+                  // whileHover={{
+                  //   filter: "grayscale(0.4)",
+                  //   cursor: "pointer",
+                  //   border: "2px solid blue",
+                  // }}
                   initial={{
-                    filter: "grayscale(0)",
                     border: "1px solid #000",
+                    filter: "grayscale(0) brightness(1)",
                   }}
                   whileHover={{
-                    filter: "grayscale(0.4)",
                     cursor: "pointer",
-                    border: "2px solid blue",
+
+                    border: [
+                      "3px solid #f00a",
+                      "3px solid #0f0a",
+                      "3px solid #00fa",
+                      "3px solid #ff0a",
+                      "3px solid #0ffa",
+                      "3px solid #f0fa",
+                      "3px solid #fffa",
+                    ],
+                    filter: [
+                      "grayscale(0) brightness(1)",
+                      "grayscale(0.5) brightness(1.25)",
+                      "grayscale(0.1) brightness(1.5)",
+                      "grayscale(0.5) brightness(1.25)",
+                      "grayscale(0), brightness(1)",
+                    ],
+
+                    transition: {
+                      duration: 1.5,
+                      repeat: Infinity,
+                    },
                   }}
+                  transition="0.15s ease-out"
                   onClick={() => {
                     const row = Math.floor(
                       flatId / localTable.size

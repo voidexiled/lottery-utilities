@@ -28,7 +28,7 @@ export function generateRandomMatrix(
   return matrix;
 }
 
-function getRandom(min: number, max: number) {
+export function getRandom(min: number, max: number) {
   const seed = Date.now() ^ (Math.random() * 0x100000000);
   const rng = prand.xoroshiro128plus(seed);
   const rand = (min: number, max: number) => {
