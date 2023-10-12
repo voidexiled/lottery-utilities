@@ -27,33 +27,15 @@ export const Viewer = () => {
   const handleDownload = async () => {
     console.log("downloading");
     if (selectedTable) {
-      await generateTableImage(selectedTable, 10, 10).then(
-        (buffer) => {
-          console.log(buffer);
+      await generateTableImage(selectedTable).then(
+        (canvas) => {
+          const url = canvas.toDataURL("image/jpeg", 0.5);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = selectedTable.name + ".jpeg";
+          a.click();
         }
       );
-
-      // const canvas = document.getElementById(
-      //   (selectedTable.id as unknown) as string
-      // );
-      // if (canvas) {
-      //   const oldStyles = canvas.style;
-      //   const oldBorder = canvas.style.border;
-      //   const oldBorderRadius = canvas.style.borderRadius;
-      //   console.log(oldStyles);
-      //   canvas.style.border = "0.25px solid #000";
-      //   canvas.style.borderRadius = "0";
-      //   const canvasImage = await html2canvas(canvas, {
-      //     scale: 2.5,
-      //   });
-      //   console.log(canvasImage.toDataURL());
-      //   const link = document.createElement("a");
-      //   link.download = "image.png";
-      //   link.href = canvasImage.toDataURL();
-      //   link.click();
-      //   canvas.style.border = oldBorder;
-      //   canvas.style.borderRadius = oldBorderRadius;
-      // }
     }
   };
 
