@@ -28,6 +28,7 @@ const generateTable = (tables: Table[]) => {
     date: new Date().toISOString(),
     size: 4,
   };
+
   return table;
 };
 
@@ -38,18 +39,24 @@ const concatTables = (
   return [...oldTables, ...newTables];
 };
 
+
+
+
 export const useTablesStore = create<State>((set) => ({
   tables: data,
   selectedTable: null,
   setSelectedTable: (table) =>
     set(() => ({ selectedTable: table })),
   addTable: () => {
-    set((state) => ({
-      tables: [
-        ...state.tables,
-        generateTable(state.tables),
-      ],
-    }));
+    set((state) => (
+      {
+        tables: [
+          ...state.tables,
+          generateTable(state.tables),
+        ],
+        return: state.tables[state.tables.length - 1]
+      }));
+
   },
   setTable: (table) => {
     set((state) => ({

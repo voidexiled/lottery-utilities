@@ -1,11 +1,17 @@
-import { Box, SimpleGrid } from "@chakra-ui/react";
+import { Box, Button, SimpleGrid } from "@chakra-ui/react";
 
 import { LotteryTable } from "./Reusable/LotteryTable";
 import { useModesStore } from "../store/modes";
 import { AnimatePresence, motion } from "framer-motion";
-import { IconArrowLeft } from "@tabler/icons-react";
+import {
+  IconArrowLeft,
+  IconDownload,
+} from "@tabler/icons-react";
 import { useTablesStore } from "../store/tables";
+import { generateTableImage } from "../features/images/generateTableImage";
 
+//import html2canvas from "html2canvas";
+//import sharp from "sharp";
 export const Viewer = () => {
   const modes = useModesStore((state) => state.modes);
   const setMode = useModesStore((state) => state.setMode);
@@ -17,6 +23,39 @@ export const Viewer = () => {
   const setSelectedTable = useTablesStore(
     (state) => state.setSelectedTable
   );
+
+  const handleDownload = async () => {
+    console.log("downloading");
+    if (selectedTable) {
+      await generateTableImage(selectedTable, 10, 10).then(
+        (buffer) => {
+          console.log(buffer);
+        }
+      );
+
+      // const canvas = document.getElementById(
+      //   (selectedTable.id as unknown) as string
+      // );
+      // if (canvas) {
+      //   const oldStyles = canvas.style;
+      //   const oldBorder = canvas.style.border;
+      //   const oldBorderRadius = canvas.style.borderRadius;
+      //   console.log(oldStyles);
+      //   canvas.style.border = "0.25px solid #000";
+      //   canvas.style.borderRadius = "0";
+      //   const canvasImage = await html2canvas(canvas, {
+      //     scale: 2.5,
+      //   });
+      //   console.log(canvasImage.toDataURL());
+      //   const link = document.createElement("a");
+      //   link.download = "image.png";
+      //   link.href = canvasImage.toDataURL();
+      //   link.click();
+      //   canvas.style.border = oldBorder;
+      //   canvas.style.borderRadius = oldBorderRadius;
+      // }
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -112,6 +151,12 @@ export const Viewer = () => {
             >
               <IconArrowLeft color="#fff"></IconArrowLeft>{" "}
             </Box>
+            <Button
+              rightIcon={<IconDownload />}
+              onClick={handleDownload}
+            >
+              Download
+            </Button>
             {selectedTable ? (
               <LotteryTable
                 key={

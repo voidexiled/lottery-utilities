@@ -8,4 +8,8 @@ export const TOOLS = {
     id: 1,
     name: "Generador estandar automatico",
   },
+  GENERATE_PDF: {
+    id: 2,
+    name: "Generador de pdf"
+  }
 };

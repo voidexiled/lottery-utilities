@@ -24,6 +24,8 @@ import {
 } from "../../../features/tables/generateRandomMatrix";
 import { useTablesStore } from "../../../store/tables";
 import { Table } from "../../types";
+import { useImagesStore } from "../../../store/images";
+import { generateTableImage } from "../../../features/images/generateTableImage";
 
 export const StandardGenerateTool = () => {
   const features = useFeaturesStore(
@@ -53,6 +55,14 @@ export const StandardGenerateTool = () => {
     });
 
     setFeatures(newFeatures);
+  };
+  const addImage = useImagesStore(
+    (state) => state.addImage
+  );
+  const addImagesToStore = async (table: Table) => {
+    await generateTableImage(table).then((image) => {
+      addImage(image.toDataURL("image/jpeg", 0.5));
+    });
   };
 
   const handleGenerate = () => {
@@ -95,13 +105,17 @@ export const StandardGenerateTool = () => {
         matrix = putComodinIntoTable(matrix, comodin);
         console.log(matrix);
       }
-      localTables.push({
+      const t: Table = {
         id: lastTableIndex,
         name: `Table${lastTableIndex}`,
         numbers: matrix,
         date: new Date().toISOString(),
         size: size,
-      });
+      };
+
+      localTables.push(t);
+      addImagesToStore(t);
+
       lastTableIndex++;
     }
 

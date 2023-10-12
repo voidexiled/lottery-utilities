@@ -164,6 +164,7 @@ export const LotteryTable = ({
   if (selectedTable) {
     return (
       <Box
+        id={(selectedTable.id as unknown) as string}
         as={motion.li}
         key={ind}
         w={{
@@ -195,28 +196,33 @@ export const LotteryTable = ({
                 (fig) => fig.id === number
               );
               const imageSrc = figure?.src.split("/");
-              const img = imageSrc?.pop();
+              const img = imageSrc
+                ?.pop()
+                ?.replace(".webp", ".jpg");
               if (imageSrc && img) {
-                imageSrc?.push("thumb");
-                imageSrc?.push(img);
+                imageSrc.pop();
+                imageSrc.push(img);
               }
-              //const finalSrc = imageSrc?.join("/");
+              const finalSrc = imageSrc?.join("/");
               const flatId = index;
 
               const pKey = `${selectedTable.id}-${index}`;
               console.info(pKey);
+
               return (
                 <Image
                   as={motion.img}
                   key={pKey}
-                  src={figure?.src}
+                  src={finalSrc}
                   alt={figure?.name}
                   objectFit="cover"
-                  border="1px solid black"
                   w="full"
                   h="full"
                   draggable="false"
                   loading="lazy"
+                  sx={{
+                    border: "0.25px solid #000",
+                  }}
                   // initial={{
                   //   filter: "grayscale(0)",
                   //   border: "1px solid #000",

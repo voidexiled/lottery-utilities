@@ -3,6 +3,7 @@ import { useToolsStore } from "../store/tools";
 import { TOOLS } from "../constants/Tools";
 import { FigureSearcherTool } from "./Tools/FigureSearcher/FigureSearcherTool";
 import { StandardGenerateTool } from "./Tools/StandardGenerator/StandardGenerateTool";
+import { PDFTool } from "./Tools/PDFGenerator/PDFTool";
 
 export const Tool = () => {
   const tool = useToolsStore((state) => state.tool);
@@ -14,6 +15,7 @@ export const Tool = () => {
     return <FigureSearcherTool />;
   if (tool === TOOLS.STANDARD_GENERATE)
     return <StandardGenerateTool></StandardGenerateTool>;
-
+  if (tool === TOOLS.GENERATE_PDF)
+    return <PDFTool></PDFTool>;
   return <></>;
 };

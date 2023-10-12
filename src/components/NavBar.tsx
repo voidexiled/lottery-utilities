@@ -21,6 +21,8 @@ export const NavBar = () => {
   const addTable = useTablesStore(
     (state) => state.addTable
   );
+
+  //TODO Añadir tabla a el estado de imagenes con el boton de añadir tabla de la nav bar
   return (
     <Box
       as="header"
