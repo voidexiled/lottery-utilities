@@ -3,7 +3,6 @@ export const TOOLS = {
     id: 0,
     name: "Buscador de figuras",
   },
-
   STANDARD_GENERATE: {
     id: 1,
     name: "Generador estandar automatico",
@@ -11,5 +10,9 @@ export const TOOLS = {
   GENERATE_PDF: {
     id: 2,
     name: "Generador de pdf"
+  },
+  MULTIPLE_GENERATE: {
+    id: 3,
+    name: "Generador multiple"
   }
 };

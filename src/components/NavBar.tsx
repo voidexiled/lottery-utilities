@@ -33,7 +33,7 @@ export const NavBar = () => {
       justifyContent="space-between"
       w="full"
       h={70}
-      px="62px"
+      px={{ base: 2, md: 5, xl: 62 }}
       textColor={"var(--light)"}
       sx={{
         background: "var(--night)",
