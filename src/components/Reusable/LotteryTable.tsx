@@ -153,7 +153,9 @@ export const LotteryTable = ({
                   h="full"
                   draggable="false"
                   loading="lazy"
-                  sx={{ imageResolution: "80dpi" }}
+                  sx={{
+                    imageResolution: "80dpi",
+                  }}
                 />
               );
             })}
@@ -234,7 +236,7 @@ export const LotteryTable = ({
                   // }}
                   initial={{
                     border: "1px solid #000",
-                    filter: "grayscale(0) brightness(1)",
+                    filter: "grayscale(0) brightness(1) ",
                   }}
                   whileHover={{
                     cursor: "pointer",

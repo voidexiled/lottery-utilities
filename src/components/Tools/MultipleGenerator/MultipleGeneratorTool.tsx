@@ -5,6 +5,14 @@ import {
   Flex,
   FormControl,
   FormLabel,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
@@ -12,9 +20,15 @@ import {
   NumberInputStepper,
   Text,
   Tooltip,
+  useDisclosure,
 } from "@chakra-ui/react";
+import { useRef } from "react";
 
 export const MultipleGeneratorTool = () => {
+  const nSetsModal = useDisclosure();
+  const initialRef = useRef(null);
+  const finalRef = useRef(null);
+
   const handleGenerate54Comodin = (
     double?: boolean
   ): void => {
@@ -24,6 +38,54 @@ export const MultipleGeneratorTool = () => {
       console.log("Double");
     }
   };
+  //TODO: CONVERTIR A USEDISCLOSURE CON INITIAL REF Y FINAL REF
+  const openAlgoritmCEModal = () => {
+    return;
+  };
+
+  const NSetsModalUI = (
+    <Modal
+      isOpen={nSetsModal.isOpen}
+      onClose={nSetsModal.onClose}
+      initialFocusRef={initialRef}
+      finalFocusRef={finalRef}
+      colorScheme="messenger"
+      size="md"
+    >
+      <ModalOverlay />
+      <ModalContent
+        bgColor="var(--night)"
+        textColor="var(--light)"
+      >
+        -+
+        <ModalHeader>Create your account</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody pb={6}>
+          <FormControl>
+            <FormLabel>First name</FormLabel>
+            <Input
+              ref={initialRef}
+              placeholder="First name"
+            />
+          </FormControl>
+
+          <FormControl mt={4}>
+            <FormLabel>Last name</FormLabel>
+            <Input placeholder="Last name" />
+          </FormControl>
+        </ModalBody>
+        <ModalFooter>
+          <Button colorScheme="blue" mr={3}>
+            Save
+          </Button>
+          <Button onClick={nSetsModal.onClose}>
+            Cancel
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  );
+
   return (
     <Flex
       as="section"
@@ -131,6 +193,7 @@ export const MultipleGeneratorTool = () => {
             <Button
               _hover={{ backgroundColor: "#ffffff0f" }}
               w="95%"
+              onClick={nSetsModal.onOpen}
             >
               <span>Generar n sets</span>
             </Button>
@@ -143,12 +206,16 @@ export const MultipleGeneratorTool = () => {
             <Button
               _hover={{ backgroundColor: "#ffffff0f" }}
               w="95%"
+              onClick={() => {
+                openAlgoritmCEModal();
+              }}
             >
               <span>Algoritmo CE</span>
             </Button>
           </Tooltip>
         </ButtonGroup>
       </Box>
+      {NSetsModalUI}
     </Flex>
   );
 };
