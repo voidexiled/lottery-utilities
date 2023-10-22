@@ -325,8 +325,8 @@ export const StandardGenerateTool = () => {
                     disabled
                       ? "pink.500"
                       : feature.selected
-                      ? "messenger.500"
-                      : "messenger.700"
+                        ? "messenger.500"
+                        : "messenger.700"
                   }
                   disabled={disabled}
                 >
