@@ -2,10 +2,10 @@ import {
   Box,
   Button,
   ButtonGroup,
-  Checkbox,
   Flex,
   FormControl,
   FormLabel,
+  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -18,24 +18,16 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
-  Select,
   Text,
   Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useRef, useState } from "react";
-import { useFigureStore } from '../../../store/figures';
-import { Table } from '../../types';
-import { useTablesStore } from '../../../store/tables';
-import { Figure } from '../../../store/types';
+import { useRef } from "react";
 
 export const MultipleGeneratorTool = () => {
-  const tables = useTablesStore((state) => state.tables);
-  const figures = useFigureStore((state) => state.figures);
   const nSetsModal = useDisclosure();
   const initialRef = useRef(null);
   const finalRef = useRef(null);
-  const [withoutComodin, setWithoutComodin] = useState(true)
 
   const handleGenerate54Comodin = (
     double?: boolean
@@ -51,31 +43,6 @@ export const MultipleGeneratorTool = () => {
     return;
   };
 
-  const handleGenerate = () => {
-    let comodin = Number((document.getElementById("comodinInput") as HTMLInputElement).value);
-    const size = Number((document.getElementById("sizeInput") as HTMLInputElement).value);
-    //const qyTables = Number((document.getElementById("cantidadTablasInput") as HTMLInputElement).value);
-    if (withoutComodin) {
-      comodin = 0;
-    }
-    const figuresId = figures.filter((f) => f.id !== comodin);
-
-    if (!withoutComodin) {
-      const figureComodin = figures.find((f) => f.id === comodin) as Figure;
-      figuresId.unshift(figureComodin);
-    }
-    console.log(figuresId)
-    const localTables: Table[] = [];
-
-
-    let lastTableIndex = 0;
-    if (tables[0]) {
-      lastTableIndex = tables[tables.length - 1].id + 1;
-    }
-
-    // console.log(comodin, size, qyTables);
-  }
-
   const NSetsModalUI = (
     <Modal
       isOpen={nSetsModal.isOpen}
@@ -83,110 +50,40 @@ export const MultipleGeneratorTool = () => {
       initialFocusRef={initialRef}
       finalFocusRef={finalRef}
       colorScheme="messenger"
-      size={{ base: "full", md: "xs", lg: "sm", xl: "md", "2xl": "lg" }}
-      isCentered={true}
-      closeOnEsc={true}
-      closeOnOverlayClick={true}
-      motionPreset='slideInBottom'
-
+      size="md"
     >
       <ModalOverlay />
       <ModalContent
         bgColor="var(--night)"
         textColor="var(--light)"
       >
-
-        <ModalHeader fontSize={{ base: "18px" }}>Generar set de tablas</ModalHeader>
+        -+
+        <ModalHeader>Create your account</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <FormControl>
-
-            <FormLabel >
-              <Checkbox size="sm" checked={withoutComodin} onChange={() => { setWithoutComodin(!withoutComodin) }}>Comodin</Checkbox>
-
-            </FormLabel>
-            <Select
-              id="comodinInput"
-              size="sm"
-              variant="outline"
-              borderColor="messenger.500"
-              focusBorderColor="messenger.600"
-              _hover={{
-                borderColor:
-                  "var(--chakra-colors-messenger-700);",
-              }}
-              className="customScrollBar"
-              disabled={withoutComodin}
-            >
-              {figures.map((f) => {
-                return (
-                  <option
-                    className="customScrollBar"
-                    key={f.id}
-                    value={f.id}
-                    style={{
-                      color: "black",
-                    }}
-                  >
-                    {f.id + " - " + f.name}
-                  </option>
-                );
-              })}
-            </Select>
+            <FormLabel>First name</FormLabel>
+            <Input
+              ref={initialRef}
+              placeholder="First name"
+            />
           </FormControl>
 
           <FormControl mt={4}>
-            <FormLabel fontSize={{ base: "16px" }}>Cantidad de tablas:</FormLabel>
-            <NumberInput
-              id="cantidadTablasInput"
-              size="sm"
-              variant="outline"
-              defaultValue={1}
-              min={1}
-              max={150}
-            >
-              <NumberInputField
-                id="sizeInput"
-                placeholder="4"
-                borderColor="messenger.500"
-                _focus={{
-                  borderColor: "messenger.600",
-                }}
-                _hover={{
-                  borderColor: "messenger.700",
-                }}
-              />
-              <NumberInputStepper>
-                <NumberIncrementStepper
-                  borderColor="messenger.700"
-                  color="white"
-                  _active={{
-                    bg: "messenger.500",
-                  }}
-                  children="+"
-                />
-                <NumberDecrementStepper
-                  borderColor="messenger.700"
-                  children="-"
-                  color="white"
-                  _active={{
-                    bg: "pink.500",
-                  }}
-                />
-              </NumberInputStepper>
-            </NumberInput>
+            <FormLabel>Last name</FormLabel>
+            <Input placeholder="Last name" />
           </FormControl>
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} size="sm" onClick={handleGenerate}>
-            Generar
+          <Button colorScheme="blue" mr={3}>
+            Save
           </Button>
-          <Button onClick={nSetsModal.onClose} size="sm">
-            Cancelar
+          <Button onClick={nSetsModal.onClose}>
+            Cancel
           </Button>
         </ModalFooter>
       </ModalContent>
-    </Modal >
+    </Modal>
   );
 
   return (
@@ -212,7 +109,6 @@ export const MultipleGeneratorTool = () => {
           <FormLabel fontSize={16} w="full">
             Columnas y Filas
             <NumberInput
-              id="sizeInput"
               size="sm"
               variant="outline"
               defaultValue={4}
@@ -299,7 +195,7 @@ export const MultipleGeneratorTool = () => {
               w="95%"
               onClick={nSetsModal.onOpen}
             >
-              <span>Generar sets de n</span>
+              <span>Generar n sets</span>
             </Button>
           </Tooltip>
           <Tooltip

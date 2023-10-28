@@ -5,6 +5,7 @@ import { create } from 'zustand';
 type State = {
     images: string[],
     addImage: (canvas: string) => void
+    setImages: (images: string[]) => void
 };
 
 const concatArrays = (arr1: string[], arr2: string[]): string[] => {
@@ -18,6 +19,12 @@ export const useImagesStore = create<State>((set) => ({
             images: concatArrays(state.images, [canvas])
         }))
     },
+    setImages: (images: string[]) => {
+        set(() => ({
+            images: images
+        }))
+    }
+
 
 })
 

@@ -80,7 +80,7 @@ export const Viewer = () => {
             }}
           >
             {tables &&
-              tables.reverse().map((t, index) => {
+              tables.map((t, index) => {
                 console.log(t);
                 return (
                   <LotteryTable

@@ -18,12 +18,43 @@ import {
 import { useTablesStore } from "../../../store/tables";
 import { useImagesStore } from "../../../store/images";
 import { jsPDF } from "jspdf";
+import { generateTableImage } from "../../../features/images/generateTableImage";
+
 export const PDFTool = () => {
   const tables = useTablesStore((state) => state.tables);
   const images = useImagesStore((state) => state.images);
+  const setImages = useImagesStore(
+    (state) => state.setImages
+  );
+
+  const addImagesToStore = () => {
+    const tempStrings: string[] = [];
+    tables
+      .sort((a, b) => {
+        if (a.id < b.id) {
+          return -1;
+        }
+        if (a.id > b.id) {
+          return 1;
+        }
+        return 0;
+      })
+      .forEach(async (table) => {
+        console.log(table);
+        await generateTableImage(table).then((image) => {
+          //addImage(image.toDataURL("image/jpeg", 0.5));
+          tempStrings.push(
+            image.toDataURL("image/jpeg", 0.5)
+          );
+        });
+      });
+    console.log(tempStrings);
+    setImages(tempStrings);
+  };
 
   const handleGeneratePdf = async () => {
-    //addImagesToStore();
+    addImagesToStore();
+
     const doc = new jsPDF({
       orientation: "p",
       unit: "cm",
@@ -34,12 +65,13 @@ export const PDFTool = () => {
 
     //    const maxImagesPerPage = 4; // Máximo de imágenes por página
     const imgWidth = 7.6; // Ancho de cada imagen en cm
-    const imgHeight = 12.6; // Alto de cada imagen en cm
+    const imgHeight = 12.4; // Alto de cada imagen en cm
 
     let x = 1; // Posición X inicial en cm
     let y = 1; // Posición Y inicial en cm
 
     for (const image of images) {
+      console.log(image);
       if (x + imgWidth > 21) {
         // Si no hay suficiente espacio en la fila actual, pasa a la siguiente fila
         x = 1;
@@ -57,7 +89,6 @@ export const PDFTool = () => {
         image.startsWith("data:image")
       ) {
         doc.setFontSize(12);
-        console.log(image);
         doc.addImage(
           image,
           "JPEG",

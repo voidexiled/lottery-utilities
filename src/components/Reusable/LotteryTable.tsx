@@ -23,6 +23,9 @@ export const LotteryTable = ({
     (state) => state.removeTable
   );
   const tables = useTablesStore((state) => state.tables);
+  // const setTable = useTablesStore(
+  //   (state) => state.setTable
+  // );
   const setSelectedTable = useTablesStore(
     (state) => state.setSelectedTable
   );
@@ -50,11 +53,15 @@ export const LotteryTable = ({
   useEffect(() => {
     if (selectedTable) {
       setLocalTable(selectedTable);
+      // if (localTable) {
+      //   setTable(localTable);
+      // }
     }
 
     return () => {
       setLocalTable(selectedTable);
     };
+    //}, [selectedTable, localTable, setTable]);
   }, [selectedTable]);
 
   if (thumb) {
