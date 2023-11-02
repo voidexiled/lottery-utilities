@@ -62,16 +62,16 @@ export const PDFTool = () => {
       putOnlyUsedFonts: true,
       compress: true,
     });
-
+    const wInput = document.getElementById("widthTableInput") as HTMLInputElement;
+    const hInput = document.getElementById("heightTableInput") as HTMLInputElement;
     //    const maxImagesPerPage = 4; // Máximo de imágenes por página
-    const imgWidth = 7.6; // Ancho de cada imagen en cm
-    const imgHeight = 12.4; // Alto de cada imagen en cm
+    const imgWidth = Number(wInput.value) || 7.6; // Ancho de cada imagen en cm
+    const imgHeight = Number(hInput) || 12.4; // Alto de cada imagen en cm
 
     let x = 1; // Posición X inicial en cm
     let y = 1; // Posición Y inicial en cm
 
     for (const image of images) {
-      console.log(image);
       if (x + imgWidth > 21) {
         // Si no hay suficiente espacio en la fila actual, pasa a la siguiente fila
         x = 1;
@@ -192,7 +192,7 @@ export const PDFTool = () => {
                 step={0.1}
               >
                 <NumberInputField
-                  id="cantidadTablasInput"
+                  id="widthTableInput"
                   placeholder="25"
                   borderColor="messenger.500"
                   _focus={{
@@ -240,7 +240,7 @@ export const PDFTool = () => {
                 step={0.1}
               >
                 <NumberInputField
-                  id="cantidadTablasInput"
+                  id="heightTableInput"
                   placeholder="25"
                   borderColor="messenger.500"
                   _focus={{
