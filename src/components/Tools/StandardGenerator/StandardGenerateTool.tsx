@@ -173,7 +173,9 @@ export const StandardGenerateTool = () => {
         0,
         tableWithComodin.length - 1
       );
-      return { x: row, y: column };
+      //return { x: row, y: column };
+      console.log(row, column)
+      return { x: 0, y: 2 }
     };
     const place: { x: number; y: number } = randomPlace();
     tableWithComodin[place.x][place.y] = comodin;
