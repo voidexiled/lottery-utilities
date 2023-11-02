@@ -66,7 +66,7 @@ export const PDFTool = () => {
     const hInput = document.getElementById("heightTableInput") as HTMLInputElement;
     //    const maxImagesPerPage = 4; // Máximo de imágenes por página
     const imgWidth = Number(wInput.value) || 7.6; // Ancho de cada imagen en cm
-    const imgHeight = Number(hInput) || 12.4; // Alto de cada imagen en cm
+    const imgHeight = Number(hInput.value) || 12.4; // Alto de cada imagen en cm
 
     let x = 1; // Posición X inicial en cm
     let y = 1; // Posición Y inicial en cm
