@@ -18,8 +18,6 @@ loteria automatizada y generada con inputs, algunos de ellos son:
 - Edicion de tablas individuales
 - Selector de figuras para insertar en las tablas individuales
 
----
-
 ## Métodos de generación:
 
 ##### En la aplicación hay distintos tipos de generación de tablas (todas con figura comodin opcional), por ejemplo:
@@ -48,8 +46,6 @@ loteria automatizada y generada con inputs, algunos de ellos son:
   completa aleatoriedad, sin embargo éste tiene un array de las 54 figuras y las
   va desordenando y usando todas hasta que se quede vacio el array y después se
   rellenara con las 54 figuras de nuevo.
-
----
 
 ## Detalles
 
