@@ -7,13 +7,13 @@ import {
   IconArrowLeft,
   IconArrowRight,
   IconDownload,
+  IconMinimize,
 } from "@tabler/icons-react";
 import { useTablesStore } from "../store/tables";
 import { generateTableImage } from "../features/images/generateTableImage";
 import { useEffect, useState } from "react";
 
-//import html2canvas from "html2canvas";
-//import sharp from "sharp";
+
 export const Viewer = () => {
   const [previousTableIdSelected, setPreviousTableIdSelected] = useState(0);
   const modes = useModesStore((state) => state.modes);
@@ -38,6 +38,8 @@ export const Viewer = () => {
         console.warn(element)
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
+          // ANIMACION DE QUE SE SCROLLEO HACIA ESE ELEMENTO EN ESPECIFICO
+          // REMARCAR LA TABLA A LA QUE SE REGRESÓ
         }
       }
     }
@@ -156,11 +158,27 @@ export const Viewer = () => {
               <Button background="none"
               _hover={{background: "#00000a"}}
                onClick={() => {
+                const previousTable = tables.find((t) => t.id === selectedTable?.id as unknown as number - 1);
+                if (previousTable) {
+                  setSelectedTable(previousTable);
+                }
+
+              }}>
+              <IconArrowLeft color="#fff"></IconArrowLeft></Button>
+              <Button background="none"
+              _hover={{background: "#00000a"}} onClick={() => {
                 setMode(modes.FULL_MODE);
                 setSelectedTable(null);
 
               }}>
-              <IconArrowLeft color="#fff"></IconArrowLeft></Button>
+                <IconMinimize color="#fff"></IconMinimize>
+              </Button>
+              <Button
+              rightIcon={<IconDownload />}
+              onClick={handleDownload}
+            >
+              Download
+            </Button>
               <Button background="none"
               _hover={{background: "#00000a"}} onClick={() => {
                 const nextTable = tables.find((t) => t.id === selectedTable?.id as unknown as number + 1);
@@ -169,14 +187,11 @@ export const Viewer = () => {
                 }
                 
 
-              }} ><IconArrowRight color="#fff"></IconArrowRight></Button>
+              }} >
+                
+                <IconArrowRight color="#fff"></IconArrowRight></Button>
             </Box>
-            <Button
-              rightIcon={<IconDownload />}
-              onClick={handleDownload}
-            >
-              Download
-            </Button>
+            
             {selectedTable ? (
               <LotteryTable
                 key={

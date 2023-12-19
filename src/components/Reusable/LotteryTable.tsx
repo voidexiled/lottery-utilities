@@ -1,4 +1,4 @@
-import { Box, Image, SimpleGrid } from "@chakra-ui/react";
+import { Box, Image, SimpleGrid,  Text } from "@chakra-ui/react";
 import { useFigureStore } from "../../store/figures";
 
 import { motion } from "framer-motion";
@@ -67,6 +67,7 @@ export const LotteryTable = memo(({
       id={(table.id as unknown) as string}
         as={motion.li}
         key={ind}
+        className="thumb"
         w={{
           base: baseTableSize,
           md: mdTableSize,
@@ -124,6 +125,27 @@ export const LotteryTable = memo(({
           setSelectedTable(table);
         }}
       >
+          <Box position="absolute" width="full" height="full" background={"rgba(0,0,0,0.7)"}  opacity={0}
+          transition={"0.5s ease-out"}
+          display="grid"
+          gridTemplateColumns="1fr"
+          gridTemplateRows="40px 40px 40px 40px 40px"
+          p={4}
+          gap={3}
+          color="#fff"
+          _hover={{
+            opacity: 1,
+            
+          }}
+          >
+            <Text>#{table.id}</Text>
+            <Text>{table.name}</Text>
+            <Text>{table.date}</Text>
+            <Text>{table.size}x{table.size}</Text>
+            <Text>{table.comodin}</Text>
+          </Box>
+
+
         <SimpleGrid
           as="ul"
           bg="blue.200"
@@ -133,6 +155,7 @@ export const LotteryTable = memo(({
           h="full"
           boxSizing="border-box"
         >
+          
           {table.numbers
             .flat()
             .map((number: number, index: number) => {
