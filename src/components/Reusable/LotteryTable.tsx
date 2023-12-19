@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 import { Table } from "../types";
 import { useModesStore } from "../../store/modes";
 import { useTablesStore } from "../../store/tables";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
-export const LotteryTable = ({
+export const LotteryTable = memo(({
   ind,
   table,
   thumb,
@@ -53,9 +53,6 @@ export const LotteryTable = ({
   useEffect(() => {
     if (selectedTable) {
       setLocalTable(selectedTable);
-      // if (localTable) {
-      //   setTable(localTable);
-      // }
     }
 
     return () => {
@@ -67,6 +64,7 @@ export const LotteryTable = ({
   if (thumb) {
     return (
       <Box
+      id={(table.id as unknown) as string}
         as={motion.li}
         key={ind}
         w={{
@@ -232,15 +230,6 @@ export const LotteryTable = ({
                   sx={{
                     border: "0.25px solid #000",
                   }}
-                  // initial={{
-                  //   filter: "grayscale(0)",
-                  //   border: "1px solid #000",
-                  // }}
-                  // whileHover={{
-                  //   filter: "grayscale(0.4)",
-                  //   cursor: "pointer",
-                  //   border: "2px solid blue",
-                  // }}
                   initial={{
                     border: "1px solid #000",
                     filter: "grayscale(0) brightness(1) ",
@@ -297,4 +286,5 @@ export const LotteryTable = ({
       </Box>
     );
   }
-};
+});
+

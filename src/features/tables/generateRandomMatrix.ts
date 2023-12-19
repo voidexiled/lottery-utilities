@@ -37,3 +37,27 @@ export function getRandom(min: number, max: number) {
   };
   return rand(min, max);
 }
+
+
+export function generateShuffledArray(min: number, max: number): number[] {
+  const originalArray = Array.from({ length: max - min + 1 }, (_, index) => index + min);
+  const shuffledArray = [...originalArray];
+
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = getRandom(0, i);
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+
+  return shuffledArray;
+}
+
+export function shuffleArray<T>(array: T[]): T[] {
+  const shuffledArray = [...array];
+
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = getRandom(0, i);
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+
+  return shuffledArray;
+}

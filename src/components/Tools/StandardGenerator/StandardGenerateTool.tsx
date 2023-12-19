@@ -174,8 +174,8 @@ export const StandardGenerateTool = () => {
         tableWithComodin.length - 1
       );
       //return { x: row, y: column };
-      console.log(row, column)
-      return { x: 2, y: 0 }
+      console.log(row, column);
+      return { x: 2, y: 0 };
     };
     const place: { x: number; y: number } = randomPlace();
     tableWithComodin[place.x][place.y] = comodin;
@@ -327,8 +327,8 @@ export const StandardGenerateTool = () => {
                     disabled
                       ? "pink.500"
                       : feature.selected
-                        ? "messenger.500"
-                        : "messenger.700"
+                      ? "messenger.500"
+                      : "messenger.700"
                   }
                   disabled={disabled}
                 >

@@ -129,6 +129,14 @@ export const Viewer = () => {
               onClick={() => {
                 setMode(modes.FULL_MODE);
                 setSelectedTable(null);
+                const el = document.getElementById(
+                  selectedTable?.id as unknown as string
+                );
+                  if (el) {
+                    console.warn(el)
+                    el.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
+                    
+                  }
               }}
             >
               <IconArrowLeft color="#fff"></IconArrowLeft>{" "}
