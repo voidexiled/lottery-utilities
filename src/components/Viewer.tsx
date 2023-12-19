@@ -5,14 +5,17 @@ import { useModesStore } from "../store/modes";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   IconArrowLeft,
+  IconArrowRight,
   IconDownload,
 } from "@tabler/icons-react";
 import { useTablesStore } from "../store/tables";
 import { generateTableImage } from "../features/images/generateTableImage";
+import { useEffect, useState } from "react";
 
 //import html2canvas from "html2canvas";
 //import sharp from "sharp";
 export const Viewer = () => {
+  const [previousTableIdSelected, setPreviousTableIdSelected] = useState(0);
   const modes = useModesStore((state) => state.modes);
   const setMode = useModesStore((state) => state.setMode);
   const mode = useModesStore((state) => state.mode);
@@ -23,6 +26,24 @@ export const Viewer = () => {
   const setSelectedTable = useTablesStore(
     (state) => state.setSelectedTable
   );
+
+  useEffect(() => {
+    if (selectedTable && mode === modes.SINGLE_MODE) {
+      setPreviousTableIdSelected(selectedTable.id);
+
+
+    } else {
+      if (tables.length > 0) {
+        const element = document.getElementById(`${previousTableIdSelected}`);
+        console.warn(element)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }
+
+  }
+  , [selectedTable])
 
   const handleDownload = async () => {
     console.log("downloading");
@@ -124,22 +145,31 @@ export const Viewer = () => {
           >
             <Box
               position="absolute"
+              display="flex"
+              width="full"
+              justifyContent="space-between"
+              alignItems="center"
               as={motion.span}
               p={4}
-              onClick={() => {
+              
+            >
+              <Button background="none"
+              _hover={{background: "#00000a"}}
+               onClick={() => {
                 setMode(modes.FULL_MODE);
                 setSelectedTable(null);
-                const el = document.getElementById(
-                  selectedTable?.id as unknown as string
-                );
-                  if (el) {
-                    console.warn(el)
-                    el.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
-                    
-                  }
-              }}
-            >
-              <IconArrowLeft color="#fff"></IconArrowLeft>{" "}
+
+              }}>
+              <IconArrowLeft color="#fff"></IconArrowLeft></Button>
+              <Button background="none"
+              _hover={{background: "#00000a"}} onClick={() => {
+                const nextTable = tables.find((t) => t.id === selectedTable?.id as unknown as number + 1);
+                if (nextTable) {
+                  setSelectedTable(nextTable);
+                }
+                
+
+              }} ><IconArrowRight color="#fff"></IconArrowRight></Button>
             </Box>
             <Button
               rightIcon={<IconDownload />}
