@@ -75,3 +75,27 @@ border: none !important;
 border: none !important;
   
 }
+
+.tableSelected {
+  animation: selected 2s ease-in-out normal;
+}
+
+@keyframes selected {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.05);
+  }
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+

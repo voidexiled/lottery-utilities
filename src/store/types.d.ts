@@ -21,4 +21,5 @@ export type Table = {
   date: string;
   size: number;
   comodin?: number;
+  dataURL?: string;
 };

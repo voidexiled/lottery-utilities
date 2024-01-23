@@ -3,24 +3,39 @@ import {
   Button,
   Select,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { IconPlus, IconTrash } from "@tabler/icons-react";
 import { Logo } from "./Logo";
 import { generateRandomMatrix } from "../features/tables/generateRandomMatrix";
 import { useTablesStore } from "../store/tables";
 import { useToolsStore } from "../store/tools";
-import { Tool } from "../store/types";
+import { Table, Tool } from "../store/types";
+import { getURLImage } from "../features/images/generateTableImage";
 
 export const NavBar = () => {
-  const setTool = useToolsStore((state) => state.setTool);
-  const tools = useToolsStore((state) => state.tools);
-  const tables = useTablesStore((state) => state.tables);
-  const removeTables = useTablesStore(
-    (state) => state.removeTables
-  );
-  const addTable = useTablesStore(
-    (state) => state.addTable
-  );
+  const toast = useToast();
+  const { tools, setTool } = useToolsStore((state) => state);
+  const { tables, removeTables, setTables } = useTablesStore((state) => state);
+
+
+  const addTableToStore = async () => {
+    const size = 4;
+    const matrix = generateRandomMatrix(size, 1, 54, 0);
+    let lastIndex = 0;
+    if (tables[0]) {
+      lastIndex = tables[tables.length - 1].id + 1;
+    }
+    const table: Table = {
+      id: lastIndex,
+      name: `Table${lastIndex}`,
+      numbers: matrix,
+      date: new Date().toISOString(),
+      size: size,
+      dataURL: await getURLImage(matrix, size),
+    };
+    setTables([table]);
+  }
 
   //TODO Añadir tabla a el estado de imagenes con el boton de añadir tabla de la nav bar
   return (
@@ -117,7 +132,15 @@ export const NavBar = () => {
           size={"sm"}
           colorScheme="messenger"
           rightIcon={<IconPlus />}
-          onClick={addTable}
+          onClick={() => {
+            const res = addTableToStore();
+
+            toast.promise(res, {
+              loading: { title: "Generando tabla...", description: "Espera un momento..." },
+              success: { title: "Tabla generada!", description: "Se ha generado correctamente", duration: 700, isClosable: true },
+              error: { title: "Error al generar", description: "Ha ocurrido un error.", duration: 2000, isClosable: true },
+            })
+          }}
         >
           Añadir tabla
         </Button>

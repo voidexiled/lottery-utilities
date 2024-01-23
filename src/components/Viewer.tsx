@@ -10,22 +10,13 @@ import {
   IconMinimize,
 } from "@tabler/icons-react";
 import { useTablesStore } from "../store/tables";
-import { generateTableImage } from "../features/images/generateTableImage";
 import { useEffect, useState } from "react";
 
 
 export const Viewer = () => {
+  const { mode, modes, setMode } = useModesStore((state) => state);
+  const { tables, selectedTable, setSelectedTable } = useTablesStore((state) => state);
   const [previousTableIdSelected, setPreviousTableIdSelected] = useState(0);
-  const modes = useModesStore((state) => state.modes);
-  const setMode = useModesStore((state) => state.setMode);
-  const mode = useModesStore((state) => state.mode);
-  const tables = useTablesStore((state) => state.tables);
-  const selectedTable = useTablesStore(
-    (state) => state.selectedTable
-  );
-  const setSelectedTable = useTablesStore(
-    (state) => state.setSelectedTable
-  );
 
   useEffect(() => {
     if (selectedTable && mode === modes.SINGLE_MODE) {
@@ -37,30 +28,17 @@ export const Viewer = () => {
         const element = document.getElementById(`${previousTableIdSelected}`);
         console.warn(element)
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-          // ANIMACION DE QUE SE SCROLLEO HACIA ESE ELEMENTO EN ESPECIFICO
-          // REMARCAR LA TABLA A LA QUE SE REGRESÓ
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          element.classList.add("tableSelected");
+          setTimeout(() => {
+            element.classList.remove("tableSelected");
+          }, 3000);
         }
       }
     }
 
   }
-  , [selectedTable])
-
-  const handleDownload = async () => {
-    console.log("downloading");
-    if (selectedTable) {
-      await generateTableImage(selectedTable).then(
-        (canvas) => {
-          const url = canvas.toDataURL("image/jpeg", 0.5);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = selectedTable.name + ".jpeg";
-          a.click();
-        }
-      );
-    }
-  };
+    , [selectedTable])
 
   return (
     <AnimatePresence>
@@ -72,8 +50,11 @@ export const Viewer = () => {
         overflowY="scroll"
         overflowX="hidden"
         className="viewerGrid"
+        id="viewerGrid"
       >
+
         {mode === modes.FULL_MODE && (
+
           <SimpleGrid
             as={motion.ul}
             position="relative"
@@ -153,45 +134,45 @@ export const Viewer = () => {
               alignItems="center"
               as={motion.span}
               p={4}
-              
+
             >
               <Button background="none"
-              _hover={{background: "#00000a"}}
-               onClick={() => {
-                const previousTable = tables.find((t) => t.id === selectedTable?.id as unknown as number - 1);
-                if (previousTable) {
-                  setSelectedTable(previousTable);
-                }
+                _hover={{ background: "#00000a" }}
+                onClick={() => {
+                  const previousTable = tables.find((t) => t.id === selectedTable?.id as unknown as number - 1);
+                  if (previousTable) {
+                    setSelectedTable(previousTable);
+                  }
 
-              }}>
-              <IconArrowLeft color="#fff"></IconArrowLeft></Button>
+                }}>
+                <IconArrowLeft color="#fff"></IconArrowLeft></Button>
               <Button background="none"
-              _hover={{background: "#00000a"}} onClick={() => {
-                setMode(modes.FULL_MODE);
-                setSelectedTable(null);
+                _hover={{ background: "#00000a" }} onClick={() => {
+                  setMode(modes.FULL_MODE);
+                  setSelectedTable(null);
 
-              }}>
+                }}>
                 <IconMinimize color="#fff"></IconMinimize>
               </Button>
               <Button
-              rightIcon={<IconDownload />}
-              onClick={handleDownload}
-            >
-              Download
-            </Button>
+                rightIcon={<IconDownload />}
+                onClick={() => { console.log("Download") }}
+              >
+                Download
+              </Button>
               <Button background="none"
-              _hover={{background: "#00000a"}} onClick={() => {
-                const nextTable = tables.find((t) => t.id === selectedTable?.id as unknown as number + 1);
-                if (nextTable) {
-                  setSelectedTable(nextTable);
-                }
-                
+                _hover={{ background: "#00000a" }} onClick={() => {
+                  const nextTable = tables.find((t) => t.id === selectedTable?.id as unknown as number + 1);
+                  if (nextTable) {
+                    setSelectedTable(nextTable);
+                  }
 
-              }} >
-                
+
+                }} >
+
                 <IconArrowRight color="#fff"></IconArrowRight></Button>
             </Box>
-            
+
             {selectedTable ? (
               <LotteryTable
                 key={
