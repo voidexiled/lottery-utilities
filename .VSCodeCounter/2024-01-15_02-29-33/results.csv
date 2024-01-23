@@ -1,0 +1,48 @@
+"filename", "language", "JSON with Comments", "TypeScript", "JSON", "CSS", "TypeScript JSX", "Markdown", "XML", "HTML", "YAML", "JavaScript", "comment", "blank", "total"
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\.eslintrc.cjs", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 1, 19
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\README.md", "Markdown", 0, 0, 0, 0, 0, 46, 0, 0, 0, 0, 0, 16, 62
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\index.html", "HTML", 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 1, 5, 24
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\package.json", "JSON", 0, 0, 41, 0, 0, 0, 0, 0, 0, 0, 0, 1, 42
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\pnpm-lock.yaml", "YAML", 0, 0, 0, 0, 0, 0, 0, 0, 3472, 0, 0, 474, 3946
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\public\vite.svg", "XML", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\App.css", "CSS", 0, 0, 0, 76, 0, 0, 0, 0, 0, 0, 0, 26, 102
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\App.tsx", "TypeScript JSX", 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 4, 16
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\assets\react.svg", "XML", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\LeftBar.tsx", "TypeScript JSX", 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 2, 23
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Logo.tsx", "TypeScript JSX", 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 2, 24
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Main.tsx", "TypeScript JSX", 0, 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 2, 19
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\NavBar.tsx", "TypeScript JSX", 0, 0, 0, 0, 133, 0, 0, 0, 0, 0, 12, 6, 151
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Reusable\LotteryTable.tsx", "TypeScript JSX", 0, 0, 0, 0, 285, 0, 0, 0, 0, 0, 2, 20, 307
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Tool.tsx", "TypeScript JSX", 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 3, 25
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Tools\FigureSearcher\FigureList.tsx", "TypeScript JSX", 0, 0, 0, 0, 71, 0, 0, 0, 0, 0, 0, 4, 75
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Tools\FigureSearcher\FigureSearcherTool.tsx", "TypeScript JSX", 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 2, 18
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Tools\FigureSearcher\SearchInput.tsx", "TypeScript JSX", 0, 0, 0, 0, 74, 0, 0, 0, 0, 0, 0, 3, 77
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Tools\MultipleGenerator\MultipleGeneratorTool.tsx", "TypeScript JSX", 0, 0, 0, 0, 463, 0, 0, 0, 0, 0, 177, 29, 669
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Tools\PDFGenerator\PDFTool.tsx", "TypeScript JSX", 0, 0, 0, 0, 241, 0, 0, 0, 0, 0, 8, 16, 265
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Tools\StandardGenerator\ComodinSelectorInput.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Tools\StandardGenerator\ConfigurationForm.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Tools\StandardGenerator\StandardGenerateTool.tsx", "TypeScript JSX", 0, 0, 0, 0, 431, 0, 0, 0, 0, 0, 7, 30, 468
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Tools\StandardGenerator\TextInput.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Viewer.tsx", "TypeScript JSX", 0, 0, 0, 0, 177, 0, 0, 0, 0, 0, 0, 18, 195
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\types.d.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\constants\Features.ts", "TypeScript", 0, 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 25
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\constants\Figures.ts", "TypeScript", 0, 272, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 273
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\constants\Modes.ts", "TypeScript", 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 11
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\constants\Tools.ts", "TypeScript", 0, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 19
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\constants\types.d.ts", "TypeScript", 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 8
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\features\images\generateTableImage.ts", "TypeScript", 0, 41, 0, 0, 0, 0, 0, 0, 0, 0, 6, 16, 63
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\features\tables\generateRandomMatrix.ts", "TypeScript", 0, 52, 0, 0, 0, 0, 0, 0, 0, 0, 29, 11, 92
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\index.css", "CSS", 0, 0, 0, 34, 0, 0, 0, 0, 0, 0, 0, 17, 51
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\main.tsx", "TypeScript JSX", 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 2, 13
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\store\features.ts", "TypeScript", 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 14
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\store\figures.ts", "TypeScript", 0, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 20
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\store\images.ts", "TypeScript", 0, 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 32
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\store\modes.ts", "TypeScript", 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 16
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\store\tables.ts", "TypeScript", 0, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 61
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\store\tools.ts", "TypeScript", 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 16
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\store\types.d.ts", "TypeScript", 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 26
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\vite-env.d.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\tsconfig.json", "JSON with Comments", 31, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 33
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\tsconfig.node.json", "JSON", 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 1, 11
+"c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\vite.config.ts", "TypeScript", 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 8
+"Total", "-", 31, 575, 51, 110, 1996, 46, 2, 18, 3472, 18, 246, 762, 7327
