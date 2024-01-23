@@ -1,0 +1,97 @@
+Date : 2024-01-15 02:29:33
+Directory : c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities
+Total : 46 files,  6319 codes, 246 comments, 762 blanks, all 7327 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| YAML               |          1 |      3,472 |          0 |        474 |      3,946 |
+| TypeScript JSX     |         18 |      1,996 |        206 |        146 |      2,348 |
+| TypeScript         |         17 |        575 |         37 |         75 |        687 |
+| CSS                |          2 |        110 |          0 |         43 |        153 |
+| JSON               |          2 |         51 |          0 |          2 |         53 |
+| Markdown           |          1 |         46 |          0 |         16 |         62 |
+| JSON with Comments |          1 |         31 |          2 |          0 |         33 |
+| HTML               |          1 |         18 |          1 |          5 |         24 |
+| JavaScript         |          1 |         18 |          0 |          1 |         19 |
+| XML                |          2 |          2 |          0 |          0 |          2 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                        | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                           |         46 |      6,319 |        246 |        762 |      7,327 |
+| . (Files)                                                                                                                   |          8 |      3,641 |          4 |        500 |      4,145 |
+| public                                                                                                                      |          1 |          1 |          0 |          0 |          1 |
+| src                                                                                                                         |         37 |      2,677 |        242 |        262 |      3,181 |
+| src (Files)                                                                                                                 |          5 |        133 |          1 |         50 |        184 |
+| src\assets                                                                                                                  |          1 |          1 |          0 |          0 |          1 |
+| src\components                                                                                                              |         17 |      1,973 |        206 |        141 |      2,320 |
+| src\components (Files)                                                                                                      |          7 |        392 |         12 |         34 |        438 |
+| src\components\Reusable                                                                                                     |          1 |        285 |          2 |         20 |        307 |
+| src\components\Tools                                                                                                        |          9 |      1,296 |        192 |         87 |      1,575 |
+| src\components\Tools\FigureSearcher                                                                                         |          3 |        161 |          0 |          9 |        170 |
+| src\components\Tools\MultipleGenerator                                                                                      |          1 |        463 |        177 |         29 |        669 |
+| src\components\Tools\PDFGenerator                                                                                           |          1 |        241 |          8 |         16 |        265 |
+| src\components\Tools\StandardGenerator                                                                                      |          4 |        431 |          7 |         33 |        471 |
+| src\constants                                                                                                               |          5 |        330 |          0 |          6 |        336 |
+| src\features                                                                                                                |          2 |         93 |         35 |         27 |        155 |
+| src\features\images                                                                                                         |          1 |         41 |          6 |         16 |         63 |
+| src\features\tables                                                                                                         |          1 |         52 |         29 |         11 |         92 |
+| src\store                                                                                                                   |          7 |        147 |          0 |         38 |        185 |
++-----------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                                                    | language           | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\.eslintrc.cjs                                                    | JavaScript         |         18 |          0 |          1 |         19 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\README.md                                                        | Markdown           |         46 |          0 |         16 |         62 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\index.html                                                       | HTML               |         18 |          1 |          5 |         24 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\package.json                                                     | JSON               |         41 |          0 |          1 |         42 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\pnpm-lock.yaml                                                   | YAML               |      3,472 |          0 |        474 |      3,946 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\public\vite.svg                                                  | XML                |          1 |          0 |          0 |          1 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\App.css                                                      | CSS                |         76 |          0 |         26 |        102 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\App.tsx                                                      | TypeScript JSX     |         12 |          0 |          4 |         16 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\assets\react.svg                                             | XML                |          1 |          0 |          0 |          1 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\LeftBar.tsx                                       | TypeScript JSX     |         21 |          0 |          2 |         23 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Logo.tsx                                          | TypeScript JSX     |         22 |          0 |          2 |         24 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Main.tsx                                          | TypeScript JSX     |         17 |          0 |          2 |         19 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\NavBar.tsx                                        | TypeScript JSX     |        133 |         12 |          6 |        151 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Reusable\LotteryTable.tsx                         | TypeScript JSX     |        285 |          2 |         20 |        307 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Tool.tsx                                          | TypeScript JSX     |         22 |          0 |          3 |         25 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Tools\FigureSearcher\FigureList.tsx               | TypeScript JSX     |         71 |          0 |          4 |         75 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Tools\FigureSearcher\FigureSearcherTool.tsx       | TypeScript JSX     |         16 |          0 |          2 |         18 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Tools\FigureSearcher\SearchInput.tsx              | TypeScript JSX     |         74 |          0 |          3 |         77 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Tools\MultipleGenerator\MultipleGeneratorTool.tsx | TypeScript JSX     |        463 |        177 |         29 |        669 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Tools\PDFGenerator\PDFTool.tsx                    | TypeScript JSX     |        241 |          8 |         16 |        265 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Tools\StandardGenerator\ComodinSelectorInput.tsx  | TypeScript JSX     |          0 |          0 |          1 |          1 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Tools\StandardGenerator\ConfigurationForm.tsx     | TypeScript JSX     |          0 |          0 |          1 |          1 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Tools\StandardGenerator\StandardGenerateTool.tsx  | TypeScript JSX     |        431 |          7 |         30 |        468 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Tools\StandardGenerator\TextInput.tsx             | TypeScript JSX     |          0 |          0 |          1 |          1 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\Viewer.tsx                                        | TypeScript JSX     |        177 |          0 |         18 |        195 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\components\types.d.ts                                        | TypeScript         |          0 |          0 |          1 |          1 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\constants\Features.ts                                        | TypeScript         |         23 |          0 |          2 |         25 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\constants\Figures.ts                                         | TypeScript         |        272 |          0 |          1 |        273 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\constants\Modes.ts                                           | TypeScript         |         10 |          0 |          1 |         11 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\constants\Tools.ts                                           | TypeScript         |         18 |          0 |          1 |         19 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\constants\types.d.ts                                         | TypeScript         |          7 |          0 |          1 |          8 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\features\images\generateTableImage.ts                        | TypeScript         |         41 |          6 |         16 |         63 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\features\tables\generateRandomMatrix.ts                      | TypeScript         |         52 |         29 |         11 |         92 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\index.css                                                    | CSS                |         34 |          0 |         17 |         51 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\main.tsx                                                     | TypeScript JSX     |         11 |          0 |          2 |         13 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\store\features.ts                                            | TypeScript         |         11 |          0 |          3 |         14 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\store\figures.ts                                             | TypeScript         |         17 |          0 |          3 |         20 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\store\images.ts                                              | TypeScript         |         23 |          0 |          9 |         32 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\store\modes.ts                                               | TypeScript         |         13 |          0 |          3 |         16 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\store\tables.ts                                              | TypeScript         |         48 |          0 |         13 |         61 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\store\tools.ts                                               | TypeScript         |         13 |          0 |          3 |         16 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\store\types.d.ts                                             | TypeScript         |         22 |          0 |          4 |         26 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\src\vite-env.d.ts                                                | TypeScript         |          0 |          1 |          1 |          2 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\tsconfig.json                                                    | JSON with Comments |         31 |          2 |          0 |         33 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\tsconfig.node.json                                               | JSON               |         10 |          0 |          1 |         11 |
+| c:\Users\jalom\Desktop\NPM Projects\Vite\lottery-utilities\vite.config.ts                                                   | TypeScript         |          5 |          1 |          2 |          8 |
+| Total                                                                                                                       |                    |      6,319 |        246 |        762 |      7,327 |
++-----------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
