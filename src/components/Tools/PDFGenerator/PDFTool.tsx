@@ -16,15 +16,44 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useTablesStore } from "../../../store/tables";
+import { useImagesStore } from "../../../store/images";
 import { jsPDF } from "jspdf";
+import { generateTableImage } from "../../../features/images/generateTableImage";
 
 export const PDFTool = () => {
   const tables = useTablesStore((state) => state.tables);
+  const images = useImagesStore((state) => state.images);
+  const setImages = useImagesStore(
+    (state) => state.setImages
+  );
 
-
+  const addImagesToStore = () => {
+    const tempStrings: string[] = [];
+    tables
+      .sort((a, b) => {
+        if (a.id < b.id) {
+          return -1;
+        }
+        if (a.id > b.id) {
+          return 1;
+        }
+        return 0;
+      })
+      .forEach(async (table) => {
+        console.log(table);
+        await generateTableImage(table).then((image) => {
+          //addImage(image.toDataURL("image/jpeg", 0.5));
+          tempStrings.push(
+            image.toDataURL("image/jpeg", 0.5)
+          );
+        });
+      });
+    console.log(tempStrings);
+    setImages(tempStrings);
+  };
 
   const handleGeneratePdf = async () => {
-    //addImagesToStore();
+    addImagesToStore();
 
     const doc = new jsPDF({
       orientation: "p",
@@ -42,11 +71,7 @@ export const PDFTool = () => {
     let x = 1; // Posición X inicial en cm
     let y = 1; // Posición Y inicial en cm
 
-    for (const table of tables) {
-      const image = table.dataURL;
-      if (!image) {
-        return;
-      }
+    for (const image of images) {
       if (x + imgWidth > 21) {
         // Si no hay suficiente espacio en la fila actual, pasa a la siguiente fila
         x = 1;
@@ -60,7 +85,7 @@ export const PDFTool = () => {
       }
 
       if (
-        typeof table.dataURL === "string" &&
+        typeof image === "string" &&
         image.startsWith("data:image")
       ) {
         doc.setFontSize(12);
@@ -156,60 +181,12 @@ export const PDFTool = () => {
                 borderColor="messenger.600"
                 px={1}
               >
-                {"H"}
-              </InputLeftAddon>
-
-              <NumberInput
-                size="sm"
-                variant="outline"
-                defaultValue={12.4}
-                min={1.0}
-                precision={1}
-                step={0.1}
-              >
-                <NumberInputField
-                  id="heightTableInput"
-                  placeholder="25"
-                  borderColor="messenger.500"
-                  _focus={{
-                    borderColor: "messenger.600",
-                  }}
-                  _hover={{
-                    borderColor: "messenger.700",
-                  }}
-                />
-                <NumberInputStepper>
-                  <NumberIncrementStepper
-                    borderColor="messenger.700"
-                    color="white"
-                    _active={{
-                      bg: "messenger.500",
-                    }}
-                    children="+"
-                  />
-                  <NumberDecrementStepper
-                    borderColor="messenger.700"
-                    children="-"
-                    color="white"
-                    _active={{
-                      bg: "pink.500",
-                    }}
-                  />
-                </NumberInputStepper>
-              </NumberInput>
-            </InputGroup>
-            <InputGroup>
-              <InputLeftAddon
-                bg="messenger.700"
-                borderColor="messenger.600"
-                px={1}
-              >
                 {"W"}
               </InputLeftAddon>
               <NumberInput
                 size="sm"
                 variant="outline"
-                defaultValue={7.6}
+                defaultValue={1.0}
                 min={1.0}
                 precision={1}
                 step={0.1}
@@ -245,7 +222,54 @@ export const PDFTool = () => {
                 </NumberInputStepper>
               </NumberInput>
             </InputGroup>
+            <InputGroup>
+              <InputLeftAddon
+                bg="messenger.700"
+                borderColor="messenger.600"
+                px={1}
+              >
+                {"H"}
+              </InputLeftAddon>
 
+              <NumberInput
+                size="sm"
+                variant="outline"
+                defaultValue={1.0}
+                min={1.0}
+                precision={1}
+                step={0.1}
+              >
+                <NumberInputField
+                  id="heightTableInput"
+                  placeholder="25"
+                  borderColor="messenger.500"
+                  _focus={{
+                    borderColor: "messenger.600",
+                  }}
+                  _hover={{
+                    borderColor: "messenger.700",
+                  }}
+                />
+                <NumberInputStepper>
+                  <NumberIncrementStepper
+                    borderColor="messenger.700"
+                    color="white"
+                    _active={{
+                      bg: "messenger.500",
+                    }}
+                    children="+"
+                  />
+                  <NumberDecrementStepper
+                    borderColor="messenger.700"
+                    children="-"
+                    color="white"
+                    _active={{
+                      bg: "pink.500",
+                    }}
+                  />
+                </NumberInputStepper>
+              </NumberInput>
+            </InputGroup>
           </InputGroup>
         </FormLabel>
         <Box mb={8}>

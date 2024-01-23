@@ -1,12 +1,12 @@
-import { Box, Image, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Image, SimpleGrid,  Text } from "@chakra-ui/react";
 import { useFigureStore } from "../../store/figures";
 
 import { motion } from "framer-motion";
-
+import { Table } from "../types";
 import { useModesStore } from "../../store/modes";
 import { useTablesStore } from "../../store/tables";
 import { memo, useEffect, useState } from "react";
-import { Table } from "../../store/types";
+
 export const LotteryTable = memo(({
   ind,
   table,
@@ -16,10 +16,26 @@ export const LotteryTable = memo(({
   table: Table;
   thumb?: boolean;
 }) => {
-  const { tables, selectedTable, setSelectedTable, removeTable } = useTablesStore((state) => state);
-  const { modes, setMode } = useModesStore((state) => state);
-  const { fullFigures, figure: getFigure } = useFigureStore((state) => state);
+  const selectedTable = useTablesStore(
+    (state) => state.selectedTable
+  );
+  const removeTable = useTablesStore(
+    (state) => state.removeTable
+  );
+  const tables = useTablesStore((state) => state.tables);
+  // const setTable = useTablesStore(
+  //   (state) => state.setTable
+  // );
+  const setSelectedTable = useTablesStore(
+    (state) => state.setSelectedTable
+  );
 
+  const setMode = useModesStore((state) => state.setMode);
+  const modes = useModesStore((state) => state.modes);
+  const figures = useFigureStore(
+    (state) => state.fullFigures
+  );
+  const getFigure = useFigureStore((state) => state.figure);
 
   const [localTable, setLocalTable] = useState(
     selectedTable
@@ -44,20 +60,11 @@ export const LotteryTable = memo(({
     };
     //}, [selectedTable, localTable, setTable]);
   }, [selectedTable]);
-  const getFigureName = (id?: number): string => {
-    if (id) {
-      const figure = fullFigures.find((f) => f.id === id);
-      if (figure) {
-        return figure.name;
-      }
-    }
-    return "";
-  }
 
   if (thumb) {
     return (
       <Box
-        id={(table.id as unknown) as string}
+      id={(table.id as unknown) as string}
         as={motion.li}
         key={ind}
         className="thumb"
@@ -79,13 +86,13 @@ export const LotteryTable = memo(({
         m="auto"
         rounded="lg"
         initial={{
-          scale: "1",
+          scale: "0.95",
           borderCollapse: "collapse",
           border: "none",
         }}
         whileHover={{
           cursor: "pointer",
-          scale: "1.05",
+          scale: "1",
           border: [
             "3px solid #f00a",
             "3px solid #0f0a",
@@ -118,8 +125,8 @@ export const LotteryTable = memo(({
           setSelectedTable(table);
         }}
       >
-        <Box position="absolute" width="full" height="full" background={"rgba(0,0,0,0.7)"} opacity={0}
-          transition={"0.2s ease-out"}
+          <Box position="absolute" width="full" height="full" background={"rgba(0,0,0,0.7)"}  opacity={0}
+          transition={"0.5s ease-out"}
           display="grid"
           gridTemplateColumns="1fr"
           gridTemplateRows="40px 40px 40px 40px 40px"
@@ -128,15 +135,15 @@ export const LotteryTable = memo(({
           color="#fff"
           _hover={{
             opacity: 1,
-
+            
           }}
-        >
-          <Text>#{table.id}</Text>
-          <Text>{table.name}</Text>
-          <Text>{table.date}</Text>
-          <Text>{table.size}x{table.size}</Text>
-          <Text>{getFigureName(table.comodin)}</Text>
-        </Box>
+          >
+            <Text>#{table.id}</Text>
+            <Text>{table.name}</Text>
+            <Text>{table.date}</Text>
+            <Text>{table.size}x{table.size}</Text>
+            <Text>{table.comodin}</Text>
+          </Box>
 
 
         <SimpleGrid
@@ -148,11 +155,11 @@ export const LotteryTable = memo(({
           h="full"
           boxSizing="border-box"
         >
-
+          
           {table.numbers
             .flat()
             .map((number: number, index: number) => {
-              const figure = fullFigures.find(
+              const figure = figures.find(
                 (fig) => fig.id === number
               );
               const imageSrc = figure?.src.split("/");
@@ -215,7 +222,7 @@ export const LotteryTable = memo(({
           {localTable?.numbers
             .flat()
             .map((number: number, index: number) => {
-              const figure = fullFigures.find(
+              const figure = figures.find(
                 (fig) => fig.id === number
               );
               const imageSrc = figure?.src.split("/");

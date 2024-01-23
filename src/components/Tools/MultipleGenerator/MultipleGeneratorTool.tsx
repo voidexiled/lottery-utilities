@@ -22,17 +22,16 @@ import {
   Text,
   Tooltip,
   useDisclosure,
-  useToast,
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { useFigureStore } from "../../../store/figures";
+import { Table } from "../../types";
 import { useTablesStore } from "../../../store/tables";
-import { Figure, Table } from "../../../store/types";
+import { Figure } from "../../../store/types";
 import {
 
   shuffleArray,
 } from "../../../features/tables/generateRandomMatrix";
-import { getURLImage } from "../../../features/images/generateTableImage";
 
 const TABLESIZES = [
   {
@@ -70,11 +69,10 @@ const TABLESIZES = [
 console.log(TABLESIZES);
 
 export const MultipleGeneratorTool = () => {
-  const toast = useToast();
-  const { tables, setTables } = useTablesStore((state) => state);
-
-  const { figures } = useFigureStore(
-    (state) => state
+  const { setTables } = useTablesStore((state) => state);
+  const tables = useTablesStore((state) => state.tables);
+  const figures = useFigureStore(
+    (state) => state.fullFigures
   );
   const nSetsModal = useDisclosure();
   const initialRef = useRef(null);
@@ -82,6 +80,9 @@ export const MultipleGeneratorTool = () => {
   const [withoutComodin, setWithoutComodin] = useState(
     true
   );
+
+
+
 
   const handleGenerate54Comodin = (
     double?: boolean
@@ -102,7 +103,7 @@ export const MultipleGeneratorTool = () => {
    * Genera las tablas utilizando la función generateTables.
    * Guarda las tablas generadas utilizando la función saveTables.
    */
-  const handleGenerateSetTablas = async () => {
+  const handleGenerateSetTablas = () => {
     const comodin = Number(
       (document.getElementById("comodinInput") as HTMLInputElement).value
     );
@@ -113,9 +114,7 @@ export const MultipleGeneratorTool = () => {
       (document.getElementById("cantidadTablasInput") as HTMLInputElement).value
     );
 
-    const localTables = await generateTables(comodin, size, qyTables).then((res) => {
-      return res;
-    });
+    const localTables = generateTables(comodin, size, qyTables);
 
     saveTables(localTables);
   };
@@ -130,7 +129,7 @@ export const MultipleGeneratorTool = () => {
    * @param qyTables La cantidad de tablas a generar.
    * @returns Un array con las tablas generadas.
    */
-  const generateTables = async (comodin: number, size: number, qyTables: number) => {
+  const generateTables = (comodin: number, size: number, qyTables: number) => {
     const localTables = [];
     const oldArray: Figure[] = [...figures];
     const comodinFigure = figures.find((f) => f.id === comodin) as Figure;
@@ -170,7 +169,6 @@ export const MultipleGeneratorTool = () => {
         numbers: newArray,
         date: new Date().toISOString(),
         size: size,
-        dataURL: await getURLImage(newArray, size),
       };
 
       localTables.push(table);
@@ -513,15 +511,7 @@ export const MultipleGeneratorTool = () => {
             colorScheme="blue"
             mr={3}
             size="sm"
-            onClick={() => {
-              const res = handleGenerateSetTablas();
-
-              toast.promise(res, {
-                loading: { title: "Generando tablas...", description: "Espera un momento..." },
-                success: { title: "Tablas generadas!", description: "Se han generado correctamente", duration: 700, isClosable: true },
-                error: { title: "Error al generar", description: "Ha ocurrido un error.", duration: 2000, isClosable: true },
-              })
-            }}
+            onClick={handleGenerateSetTablas}
           >
             Generar
           </Button>
