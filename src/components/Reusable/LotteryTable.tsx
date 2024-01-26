@@ -7,6 +7,7 @@ import { useModesStore } from "../../store/modes";
 import { useTablesStore } from "../../store/tables";
 import { memo, useEffect, useState } from "react";
 import { Table } from "../../store/types";
+import { getURLImage } from "../../features/images/generateTableImage";
 export const LotteryTable = memo(({
   ind,
   table,
@@ -18,12 +19,14 @@ export const LotteryTable = memo(({
 }) => {
   const { tables, selectedTable, setSelectedTable, removeTable } = useTablesStore((state) => state);
   const { modes, setMode } = useModesStore((state) => state);
-  const { fullFigures, figure: getFigure } = useFigureStore((state) => state);
+  const { fullFigures, figures, figure: getFigure } = useFigureStore((state) => state);
 
 
   const [localTable, setLocalTable] = useState(
     selectedTable
   );
+
+
 
   const baseTableSize = 200;
   const mdTableSize = 220;
@@ -152,7 +155,7 @@ export const LotteryTable = memo(({
           {table.numbers
             .flat()
             .map((number: number, index: number) => {
-              const figure = fullFigures.find(
+              const figure = figures.find(
                 (fig) => fig.id === number
               );
               const imageSrc = figure?.src.split("/");
@@ -215,7 +218,7 @@ export const LotteryTable = memo(({
           {localTable?.numbers
             .flat()
             .map((number: number, index: number) => {
-              const figure = fullFigures.find(
+              const figure = figures.find(
                 (fig) => fig.id === number
               );
               const imageSrc = figure?.src.split("/");
@@ -276,7 +279,7 @@ export const LotteryTable = memo(({
                     },
                   }}
                   transition="0.15s ease-out"
-                  onClick={() => {
+                  onClick={async () => {
                     const row = Math.floor(
                       flatId / localTable.size
                     );
@@ -293,6 +296,9 @@ export const LotteryTable = memo(({
                         numbers: oldNumbers,
                       });
                       console.log(tables);
+
+                      selectedTable.dataURL = await getURLImage(localTable.numbers, localTable.size);
+                      selectedTable.numbers = localTable.numbers;
                     }
                   }}
                 />
