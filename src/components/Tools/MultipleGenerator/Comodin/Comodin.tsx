@@ -59,7 +59,7 @@ const Comodin = (props: ComodinProps) => {
     const [comodin, setComodin] = useState(0);
     const [isDouble, setIsDouble] = useState(false);
     const [customComodin, setCustomComodin] = useState(false);
-
+    console.log(customComodin);
     const handleGenerateComodinTables = async () => {
         const figureId = comodin;
         const comodinTables: Table[] = [];
