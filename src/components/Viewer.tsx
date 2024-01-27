@@ -1,4 +1,4 @@
-import { Box, Button, SimpleGrid } from "@chakra-ui/react";
+import { Box, Button, SimpleGrid, Stack } from "@chakra-ui/react";
 
 import { LotteryTable } from "./Reusable/LotteryTable";
 import { useModesStore } from "../store/modes";
@@ -11,6 +11,7 @@ import {
 } from "@tabler/icons-react";
 import { useTablesStore } from "../store/tables";
 import { useEffect, useState } from "react";
+import { generateTableImage } from "../features/images/generateTableImage";
 
 
 export const Viewer = () => {
@@ -39,7 +40,20 @@ export const Viewer = () => {
 
   }
     , [selectedTable])
-
+  const handleDownload = async () => {
+    console.log("downloading");
+    if (selectedTable) {
+      await generateTableImage(selectedTable.numbers, selectedTable.size).then(
+        (canvas) => {
+          const url = canvas.toDataURL("image/jpeg", 0.5);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = selectedTable.name + ".jpeg";
+          a.click();
+        }
+      );
+    }
+  };
   return (
     <AnimatePresence>
       <Box
@@ -130,47 +144,59 @@ export const Viewer = () => {
               position="absolute"
               display="flex"
               width="full"
-              justifyContent="space-between"
+              flexDir="column"
               alignItems="center"
               as={motion.span}
               p={4}
-
+              gap={2}
             >
-              <Button background="none"
-                _hover={{ background: "#00000a" }}
-                onClick={() => {
-                  const previousTable = tables.find((t) => t.id === selectedTable?.id as unknown as number - 1);
-                  if (previousTable) {
-                    setSelectedTable(previousTable);
-                  }
+              <Stack w="full" direction="row" justifyContent="end">
+                <Button
+                  background="none"
+                  color="#fff"
+                  size="sm"
+                  rightIcon={<IconDownload />}
+                  _hover={{ background: "#00000a" }}
+                  onClick={handleDownload}
+                >
+                  Download
+                </Button>
+                <Button size="sm" background="none" color={"#fff"}
+                  rightIcon={<IconMinimize color="#fff"></IconMinimize>}
+                  _hover={{ background: "#00000a" }}
+                  onClick={() => {
+                    setMode(modes.FULL_MODE);
+                    setSelectedTable(null);
 
-                }}>
-                <IconArrowLeft color="#fff"></IconArrowLeft></Button>
-              <Button background="none"
-                _hover={{ background: "#00000a" }} onClick={() => {
-                  setMode(modes.FULL_MODE);
-                  setSelectedTable(null);
+                  }}>
+                  Minimizar
+                </Button>
+              </Stack>
+              <Stack w="full" direction="row" justifyContent="space-between">
+                <Button size="sm" background="none" color={selectedTable?.id === 0 ? "#555552" : "#fff"}
+                  _hover={{ background: "#00000a" }}
+                  onClick={() => {
+                    const previousTable = tables.find((t) => t.id === selectedTable?.id as unknown as number - 1);
+                    if (previousTable) {
+                      setSelectedTable(previousTable);
+                    }
 
-                }}>
-                <IconMinimize color="#fff"></IconMinimize>
-              </Button>
-              <Button
-                rightIcon={<IconDownload />}
-                onClick={() => { console.log("Download") }}
-              >
-                Download
-              </Button>
-              <Button background="none"
-                _hover={{ background: "#00000a" }} onClick={() => {
-                  const nextTable = tables.find((t) => t.id === selectedTable?.id as unknown as number + 1);
-                  if (nextTable) {
-                    setSelectedTable(nextTable);
-                  }
+                  }}>
+                  <IconArrowLeft color={selectedTable?.id === 0 ? "#555552" : "#fff"}></IconArrowLeft>Anterior</Button>
+
+                <Button size="sm" background="none" color={selectedTable?.id === tables.length - 1 ? "#555552" : "#fff"}
+                  _hover={{ background: "#00000a" }} onClick={() => {
+                    const nextTable = tables.find((t) => t.id === selectedTable?.id as unknown as number + 1);
+                    if (nextTable) {
+                      setSelectedTable(nextTable);
+                    }
 
 
-                }} >
+                  }} >
 
-                <IconArrowRight color="#fff"></IconArrowRight></Button>
+                  Siguiente<IconArrowRight color={selectedTable?.id === tables.length - 1 ? "#555552" : "#fff"}></IconArrowRight></Button>
+              </Stack>
+
             </Box>
 
             {selectedTable ? (

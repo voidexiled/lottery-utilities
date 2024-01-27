@@ -59,7 +59,9 @@ border: none !important;
   height: 12px;
   width: 8px;
 }
-
+.customScrollBar > option {
+  background: #aabbcc
+}
 
 .customScrollBar::-webkit-scrollbar-thumb,
 .customScrollBar::-webkit-scrollbar-track {
@@ -97,5 +99,4 @@ border: none !important;
     transform: scale(1);
   }
 }
-
 
