@@ -19,7 +19,7 @@ export const Logo = () => {
         fontSize="2xl"
         fontWeight="semibold"
       >
-        Void Lottery
+        Generador de tablas
       </Text>
     </Box>
   );
