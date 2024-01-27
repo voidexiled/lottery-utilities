@@ -194,11 +194,13 @@ export const LotteryTable = memo(({
         as={motion.li}
         key={ind}
         w={{
-          base: lgTableSize,
+          base: baseTableSize,
+          md: lgTableSize,
           xl: xxxlTableSize,
         }}
         h={{
-          base: lgTableSize * multiplier,
+          base: baseTableSize * multiplier,
+          md: lgTableSize * multiplier,
           xl: xxxlTableSize * multiplier,
         }}
         overflow="hidden"

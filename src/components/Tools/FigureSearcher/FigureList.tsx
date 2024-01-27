@@ -19,7 +19,10 @@ export const FigureList = () => {
       <Grid
         as="ul"
         textColor={"var(--light)"}
-        gridTemplateColumns="1fr 1fr"
+        gridTemplateColumns={{
+          base: "1fr",
+          lg: "1fr 1fr"
+        }}
         overflowY="scroll"
         maxH="calc(100vh - 150px - 80px)"
         className="thegrid"

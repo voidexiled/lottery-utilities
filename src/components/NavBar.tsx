@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Flex,
   Modal,
   ModalContent,
   ModalFooter,
@@ -93,7 +94,8 @@ export const NavBar = () => {
 
   //TODO Añadir tabla a el estado de imagenes con el boton de añadir tabla de la nav bar
   return (
-    <Box
+    <Flex
+      direction={{ base: "column", lg: "row" }}
       as="header"
       position="relative"
       zIndex={5}
@@ -101,8 +103,10 @@ export const NavBar = () => {
       alignItems="center"
       justifyContent="space-between"
       w="full"
-      h={70}
+      h={{ base: 120, lg: 70 }}
       px={{ base: 2, md: 5, xl: 62 }}
+      py={{ base: 4, lg: 0 }}
+
       textColor={"var(--light)"}
       sx={{
         background: "var(--night)",
@@ -111,7 +115,11 @@ export const NavBar = () => {
       boxShadow={"0 0 24px 2px rgba(0,0,0,0.20)"}
     >
       <Logo />
-      <Box width="320px">
+      <Box width={{
+        base: "320px",
+        lg: "320px"
+      }}
+        >
         <Select
           styles={customSelectStyles(true)}
           options={tools.map((t: Tool) => {
@@ -125,21 +133,27 @@ export const NavBar = () => {
         />
 
       </Box>
-      <Box as="section">
+      <Flex as="section"
+        gap={3}
+
+      >
 
         <Button
-          size={"sm"}
+          size={{ base: "xs", md: "sm" }}
           colorScheme="red"
           rightIcon={<IconTrash></IconTrash>}
           onClick={() => {
             removeTables();
           }}
-          mr={4}
+
         >
+
           Borrar tablas
+
+
         </Button>
         <Button
-          size={"sm"}
+          size={{ base: "xs", md: "sm" }}
           colorScheme="pink"
           rightIcon={
             <Box
@@ -156,12 +170,12 @@ export const NavBar = () => {
           onClick={
             tablesInfoDisclosure.onOpen
           }
-          mr={4}
+
         >
           Ver mis tablas
         </Button>
         <Button
-          size={"sm"}
+          size={{ base: "xs", md: "sm" }}
           colorScheme="messenger"
           rightIcon={<IconPlus />}
           onClick={() => {
@@ -176,7 +190,7 @@ export const NavBar = () => {
         >
           Añadir tabla
         </Button>
-      </Box>
+      </Flex>
       <Modal
 
         isOpen={tablesInfoDisclosure.isOpen}
@@ -246,6 +260,6 @@ export const NavBar = () => {
         </ModalContent>
 
       </Modal>
-    </Box >
+    </Flex >
   );
 };

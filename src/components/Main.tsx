@@ -6,7 +6,10 @@ export const Main = () => {
   return (
     <Grid
       as="main"
-      gridTemplateColumns="320px 1fr"
+      gridTemplateColumns={{
+        base: "180px 1fr",
+        lg: "320px 1fr",
+      }}
       gridTemplateRows="1fr"
       h={"calc(100vh - 70px)"}
       w="full"
