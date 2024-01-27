@@ -146,24 +146,42 @@ const Comodin = (props: ComodinProps) => {
                     <FormControl>
 
                         <FormLabel>
-                            Comodin
+                            <Checkbox
+                                mt={2}
+                                size="sm"
+                                checked={customComodin}
+                                onChange={() => {
+                                    setCustomComodin(!customComodin);
+                                }}
+                            >
+                                Comodin Personalizado
+                            </Checkbox>
                         </FormLabel>
                         <Select
+
                             //loadOptions={() => {}}
+                            isDisabled={!customComodin}
                             components={animatedComponents}
                             styles={{
 
                                 control: (styles) => {
                                     return {
                                         ...styles,
+
                                         backgroundColor: "transparent",
                                         color: "white",
                                         fontSize: "16px",
+                                        ":disabled": {
+                                            border: "#d5d5d582",
+                                        }
                                     }
                                 },
                                 container: (styles) => {
                                     return {
                                         ...styles,
+                                        overflow: 'hidden',
+                                        transition: "all 0.32s",
+                                        height: customComodin ? "initial" : "0px",
                                         color: "white",
                                     }
 
@@ -172,6 +190,9 @@ const Comodin = (props: ComodinProps) => {
                                     return {
                                         ...styles,
                                         color: "#ffffff88",
+                                        ":disabled": {
+                                            color: "#d5d5d572",
+                                        }
                                     }
                                 },
 
@@ -207,13 +228,19 @@ const Comodin = (props: ComodinProps) => {
                                     return {
                                         ...styles,
                                         color: "#ffffffdd",
-                                        cursor: "text"
+                                        cursor: "text",
+                                        ":disabled": {
+                                            color: "#d5d5d572",
+                                        }
                                     }
 
                                 },
                                 singleValue: (styles) => {
                                     return {
-                                        ...styles, color: "#ffffff"
+                                        ...styles, color: "#ffffff",
+                                        ":disabled": {
+                                            color: "#d5d5d572",
+                                        }
                                     }
                                 },
 
