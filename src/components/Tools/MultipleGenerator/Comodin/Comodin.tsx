@@ -50,7 +50,7 @@ const Comodin = (props: ComodinProps) => {
     const animatedComponents = makeAnimated();
     const initialRef = useRef(null);
     const finalRef = useRef(null);
-    
+
     const figuresSelect = fullFigures.map(fig => {
         return { value: fig.id, label: fig.id + " - " + fig.name }
     })
@@ -58,7 +58,7 @@ const Comodin = (props: ComodinProps) => {
     const [comodin, setComodin] = useState(0);
     const [isDouble, setIsDouble] = useState(false);
     const [customComodin, setCustomComodin] = useState(false);
-
+    console.log(customComodin);
     const handleGenerateComodinTables = async () => {
         const figureId = comodin;
         const comodinTables: Table[] = [];
@@ -160,7 +160,7 @@ const Comodin = (props: ComodinProps) => {
                         <Select
 
                             //loadOptions={() => {}}
-                        isDisabled={false}
+                            isDisabled={false}
                             components={animatedComponents}
                             styles={{
 
