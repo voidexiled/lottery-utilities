@@ -65,12 +65,17 @@ export const useTablesStore = create<State>((set) => {
   };
 });
 
-//const timeoutId: number | null = null;
+let timeoutId: number | null = null;
 
 // Guardar en Local Storage cuando el estado cambie
 useTablesStore.subscribe(
   (state) => {
-    
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state.tables));
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    timeoutId = window.setTimeout(() => {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state.tables));
+    }, 500); // Ajusta el tiempo de espera según tus necesidades
   }
 );
