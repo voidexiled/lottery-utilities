@@ -10,15 +10,14 @@ import {
 } from "@tabler/icons-react";
 import { useFigureStore } from "../../../store/figures";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 export const SearchInput = () => {
-  const setFigures = useFigureStore(
-    (state) => state.setFigures
-  );
 
-  const fullFigures = useFigureStore(
-    (state) => state.fullFigures
-  );
+  const { figures, fullFigures, setFigures } = useFigureStore((state) => state);
+  const [figuresToList, setFiguresToList] = useState([...figures]);
+
+
   return (
     <InputGroup size="sm" overflow="hidden">
       <InputLeftElement ml={1} pointerEvents="none">
@@ -42,6 +41,7 @@ export const SearchInput = () => {
             input.value = "";
             input.focus({ preventScroll: true });
             setFigures(fullFigures);
+
           }
         }}
       >
@@ -58,7 +58,7 @@ export const SearchInput = () => {
         onChange={(e) => {
           const value = e.target.value;
           if (value.length > 0) {
-            const newList = fullFigures.filter((fig) =>
+            const newList = figuresToList.filter((fig) =>
               fig.name
                 .toLowerCase()
                 .normalize("NFD")
@@ -67,7 +67,9 @@ export const SearchInput = () => {
             );
             setFigures(newList);
           } else {
+            setFiguresToList([...fullFigures]);
             setFigures(fullFigures);
+
           }
         }}
       ></Input>

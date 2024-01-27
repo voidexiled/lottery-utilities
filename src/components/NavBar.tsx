@@ -1,8 +1,14 @@
 import {
   Box,
   Button,
-  Select,
+  Modal,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  //Select,
   Text,
+  useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import { IconPlus, IconTrash } from "@tabler/icons-react";
@@ -10,13 +16,61 @@ import { Logo } from "./Logo";
 import { generateRandomMatrix } from "../features/tables/generateRandomMatrix";
 import { useTablesStore } from "../store/tables";
 import { useToolsStore } from "../store/tools";
-import { Table, Tool } from "../store/types";
+import { Table as TableType, Tool } from "../store/types";
 import { getURLImage } from "../features/images/generateTableImage";
 
+import Select from "react-select";
+import { customSelectStyles } from "./Reusable/styles/SelectStyles";
+import { ChangeEvent, useRef } from "react";
+//import { useFigureStore } from "../store/figures";
+
+
+
 export const NavBar = () => {
+
+  const tablesInfoDisclosure = useDisclosure();
+  const initialRef = useRef(null);
+  const finalRef = useRef(null);
+
   const toast = useToast();
   const { tools, setTool } = useToolsStore((state) => state);
   const { tables, removeTables, setTables } = useTablesStore((state) => state);
+  //const { fullFigures } = useFigureStore((state) => state);
+
+  const handleOnSelectImportFile = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      const promise = new Promise<void>((resolve, reject) => {
+        reader.onload = (e) => {
+          const content = e.target?.result as string;
+          const decoded = atob(content);
+          const parsed = JSON.parse(decoded);
+          const _tables = parsed as TableType[];
+          setTables(_tables);
+          resolve();
+        };
+
+        reader.onerror = () => {
+          reject();
+        };
+      });
+
+      reader.readAsText(file);
+
+      toast.promise(
+        promise,
+        {
+          loading: { title: "Importando tablas...", description: "Espera un momento..." },
+          success: { title: "Tablas importadas!", description: "Se ha generado correctamente", duration: 700, isClosable: true },
+          error: { title: "Error al importar!", description: "Ha ocurrido un error.", duration: 2000, isClosable: true },
+        }
+      );
+    }
+  };
+
 
 
   const addTableToStore = async () => {
@@ -26,7 +80,7 @@ export const NavBar = () => {
     if (tables[0]) {
       lastIndex = tables[tables.length - 1].id + 1;
     }
-    const table: Table = {
+    const table: TableType = {
       id: lastIndex,
       name: `Table${lastIndex}`,
       numbers: matrix,
@@ -57,44 +111,22 @@ export const NavBar = () => {
       boxShadow={"0 0 24px 2px rgba(0,0,0,0.20)"}
     >
       <Logo />
-      <Box>
+      <Box width="320px">
         <Select
-          defaultValue={tools[0].name}
-          size="xs"
-          variant="outline"
-          onChange={(
-            e: React.ChangeEvent<HTMLSelectElement>
-          ) => {
-            const value = e.target.value;
-            console.log();
+          styles={customSelectStyles(true)}
+          options={tools.map((t: Tool) => {
+            return { value: t.name, label: t.name }
+          })}
+          defaultValue={{ value: tools[0].name, label: tools[0].name }}
+          onChange={(e) => {
+            const value = e && 'value' in e ? e.value : tools[0].name;
             setTool(tools.find((t) => t.name === value));
           }}
-        >
-          {tools.map((t: Tool, index: number) => {
-            return (
-              <option
-                key={`tool-${index}`}
-                value={`${t.name}`}
-                style={{
-                  color: "black",
-                }}
-              >{`${t.name}`}</option>
-            );
-          })}
-        </Select>
+        />
+
       </Box>
       <Box as="section">
-        {/* <Button
-          p={0}
-          size="sm"
-          leftIcon={
-            <IconSun color="white"></IconSun>
-          }
-          onClick={() => {
-            colorMode.toggleColorMode();
-          }}
-          bg="none"
-        ></Button> */}
+
         <Button
           size={"sm"}
           colorScheme="red"
@@ -121,9 +153,9 @@ export const NavBar = () => {
               )}
             </Box>
           }
-          onClick={() => {
-            generateRandomMatrix(4, 1, 54);
-          }}
+          onClick={
+            tablesInfoDisclosure.onOpen
+          }
           mr={4}
         >
           Ver mis tablas
@@ -145,6 +177,75 @@ export const NavBar = () => {
           Añadir tabla
         </Button>
       </Box>
-    </Box>
+      <Modal
+
+        isOpen={tablesInfoDisclosure.isOpen}
+        onClose={tablesInfoDisclosure.onClose}
+        initialFocusRef={initialRef}
+        finalFocusRef={finalRef}
+        colorScheme="messenger"
+        size={{
+          base: "full",
+          md: "xs",
+          lg: "sm",
+          xl: "md",
+          "2xl": "lg",
+        }}
+        isCentered={true}
+        closeOnEsc={true}
+        closeOnOverlayClick={true}
+        motionPreset="slideInBottom"
+      >
+        <ModalOverlay />
+        <ModalContent bgColor="var(--night)"
+          textColor="var(--light)">
+          <ModalHeader>
+            <Text fontSize={21}>Ver mis tablas - {tables.length}</Text>
+          </ModalHeader>
+
+          <ModalFooter>
+            <input id="importTablesInput" type="file" accept=".LOTT" onChange={handleOnSelectImportFile} hidden></input>
+            <Button
+              colorScheme="blue"
+              mr={3}
+              size="sm"
+              onClick={() => {
+                const fileInput = document.getElementById("importTablesInput");
+                if (fileInput) {
+                  fileInput.click();
+                }
+              }}
+            >
+              Importar
+            </Button>
+            <Button
+              colorScheme="green"
+              mr={3}
+              size="sm"
+              onClick={() => {
+                let query = '';
+                query = JSON.stringify(tables);
+                query = btoa(query);
+                const element = document.createElement("a");
+                const file = new Blob([query], { type: 'text/plain' });
+                element.href = URL.createObjectURL(file);
+                element.download = "tables.LOTT";
+                document.body.appendChild(element);
+                element.click();
+
+                console.log(query)
+              }}
+            >
+              Exportar
+            </Button>
+
+            <Button onClick={tablesInfoDisclosure.onClose} size="sm" colorScheme="red">
+              Cancelar
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+
+      </Modal>
+    </Box >
   );
 };

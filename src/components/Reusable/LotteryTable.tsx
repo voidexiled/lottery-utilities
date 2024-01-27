@@ -19,7 +19,7 @@ export const LotteryTable = memo(({
 }) => {
   const { tables, selectedTable, setSelectedTable, removeTable } = useTablesStore((state) => state);
   const { modes, setMode } = useModesStore((state) => state);
-  const { fullFigures, figures, figure: getFigure } = useFigureStore((state) => state);
+  const { fullFigures, figure: getFigure } = useFigureStore((state) => state);
 
 
   const [localTable, setLocalTable] = useState(
@@ -155,7 +155,7 @@ export const LotteryTable = memo(({
           {table.numbers
             .flat()
             .map((number: number, index: number) => {
-              const figure = figures.find(
+              const figure = fullFigures.find(
                 (fig) => fig.id === number
               );
               const imageSrc = figure?.src.split("/");
@@ -218,7 +218,7 @@ export const LotteryTable = memo(({
           {localTable?.numbers
             .flat()
             .map((number: number, index: number) => {
-              const figure = figures.find(
+              const figure = fullFigures.find(
                 (fig) => fig.id === number
               );
               const imageSrc = figure?.src.split("/");

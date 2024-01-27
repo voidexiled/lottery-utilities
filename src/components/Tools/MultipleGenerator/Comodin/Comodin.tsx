@@ -26,6 +26,7 @@ import { useTablesStore } from "../../../../store/tables";
 import { getURLImage } from "../../../../features/images/generateTableImage";
 import { generateRandomMatrix } from "../../../../features/tables/generateRandomMatrix";
 import { putComodin, putDoubleComodin } from "../../../../features/images/tableUtils";
+import { customSelectStyles } from "../../../Reusable/styles/SelectStyles";
 interface ComodinProps {
     disclose: {
         isOpen: boolean;
@@ -65,10 +66,10 @@ const Comodin = (props: ComodinProps) => {
         const size = Number(
             (document.getElementById("sizeInput") as HTMLInputElement).value
         );
-        let tableIndex = getLastTableIndex({ tables });
+        let tableIndex = getLastTableIndex({ tables }) - 1;
         for (let nTable = 0; nTable < 54; nTable++) {
             tableIndex += 1;
-            const id = customComodin ? figureId : nTable + 1;
+            const id = customComodin && comodin > 0 ? figureId : nTable + 1;
 
             let newArray: number[][] = generateRandomMatrix(size, 1, 54, id);
             if (!isDouble) {
@@ -82,6 +83,7 @@ const Comodin = (props: ComodinProps) => {
                 name: `Table${tableIndex}`,
                 numbers: newArray,
                 date: new Date().toISOString(),
+                comodin: id,
                 size: size,
                 dataURL: await getURLImage(newArray, size),
             };
@@ -158,105 +160,9 @@ const Comodin = (props: ComodinProps) => {
                             </Checkbox>
                         </FormLabel>
                         <Select
-
-                            //loadOptions={() => {}}
-                            isDisabled={!customComodin}
+                            isDisabled={customComodin === false}
                             components={animatedComponents}
-                            styles={{
-
-                                control: (styles) => {
-                                    return {
-                                        ...styles,
-
-                                        backgroundColor: "transparent",
-                                        color: "white",
-                                        fontSize: "16px",
-                                        ":disabled": {
-                                            border: "#d5d5d582",
-                                        }
-                                    }
-                                },
-                                container: (styles) => {
-                                    return {
-                                        ...styles,
-                                        overflow: 'hidden',
-                                        transition: "all 0.32s",
-                                        height: customComodin ? "initial" : "0px",
-                                        color: "white",
-                                    }
-
-                                },
-                                placeholder: (styles) => {
-                                    return {
-                                        ...styles,
-                                        color: "#ffffff88",
-                                        ":disabled": {
-                                            color: "#d5d5d572",
-                                        }
-                                    }
-                                },
-
-                                menu: (styles) => {
-                                    return {
-                                        ...styles,
-                                        backgroundColor: "#121619cc",
-                                        borderRadius: 8,
-                                        scrollbarColor: "#ab0",
-
-                                    }
-
-                                },
-                                menuList: (styles) => {
-                                    return {
-                                        ...styles,
-                                        "::-webkit-scrollbar": {
-                                            width: "4px",
-                                            height: "0px",
-                                        },
-                                        "::-webkit-scrollbar-track": {
-                                            background: "transparent"
-                                        },
-                                        "::-webkit-scrollbar-thumb": {
-                                            background: "#888"
-                                        },
-                                        "::-webkit-scrollbar-thumb:hover": {
-                                            background: "#555"
-                                        }
-                                    }
-                                },
-                                input: (styles) => {
-                                    return {
-                                        ...styles,
-                                        color: "#ffffffdd",
-                                        cursor: "text",
-                                        ":disabled": {
-                                            color: "#d5d5d572",
-                                        }
-                                    }
-
-                                },
-                                singleValue: (styles) => {
-                                    return {
-                                        ...styles, color: "#ffffff",
-                                        ":disabled": {
-                                            color: "#d5d5d572",
-                                        }
-                                    }
-                                },
-
-                                option: (styles) => {
-                                    return {
-                                        ...styles,
-                                        fontSize: "16px",
-                                        transition: "0.32s all",
-                                        backgroundColor: "transparent",
-                                        ":hover": {
-                                            backgroundColor: "#23252C",
-                                        },
-                                    }
-                                }
-                            }
-                            }
+                            styles={customSelectStyles(customComodin === false)}
                             options={figuresSelect}
                             defaultValue={figuresSelect[0]}
                             onChange={(e) => {

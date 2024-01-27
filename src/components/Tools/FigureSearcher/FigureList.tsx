@@ -3,12 +3,10 @@ import { useFigureStore } from "../../../store/figures";
 import { AnimatePresence, motion } from "framer-motion";
 
 export const FigureList = () => {
-  const figures = useFigureStore((state) => state.figures);
-  const setFigure = useFigureStore(
-    (state) => state.setFigure
-  );
 
-  const figuresToList = figures;
+  const { figures, setFigure } = useFigureStore((state) => state);
+
+  const figuresToList = [...figures];
 
   return (
     <Box

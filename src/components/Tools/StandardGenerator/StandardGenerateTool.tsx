@@ -11,7 +11,6 @@ import {
     NumberInput,
     NumberInputField,
     NumberInputStepper,
-    Select,
     Stack,
     Text,
     useToast,
@@ -26,13 +25,16 @@ import {
 import { useTablesStore } from "../../../store/tables";
 import { Table } from "../../../store/types";
 import { getURLImage } from "../../../features/images/generateTableImage";
-
+import Select from "react-select";
+import { customSelectStyles } from "../../Reusable/styles/SelectStyles";
+import { useState } from "react";
 
 export const StandardGenerateTool = () => {
     const { features, setFeatures } = useFeaturesStore((state) => state);
     const { figures } = useFigureStore((state) => state);
     const { tables, setTables } = useTablesStore((state) => state);
     const toast = useToast();
+    const [comodin, setComodin] = useState(0);
 
 
     const handleConfig = (featureId: number) => {
@@ -47,6 +49,13 @@ export const StandardGenerateTool = () => {
             }
             return f;
         });
+        if (featureId === 0) {
+            if (!features[0].selected) {
+                setComodin(0);
+                console.log("HOLA");
+            }
+        }
+        console.log("FEATURE ID: ", featureId)
 
         setFeatures(newFeatures);
     };
@@ -63,11 +72,16 @@ export const StandardGenerateTool = () => {
         ) as HTMLInputElement;
         const comodinInput = document.getElementById(
             "comodinInput"
-        ) as HTMLSelectElement;
-        const withComodin =
-            comodinInput?.getAttribute("disabled") === null;
+        ) as HTMLInputElement;
 
-        const comodin = Number(comodinInput?.value);
+        //const withComodin: boolean = comodin > 0;
+        const withComodin =
+            comodinInput.getElementsByTagName("div")[0]?.getAttribute("aria-disabled") === null;
+
+        console.log(" COMODIN WHEN HANDLE GENERATE: ", comodin)
+
+        //TODO: CHANGE COMODIN INPUT TO STATE
+
         const size = Number(sizeInput?.value);
         const cantidad = Number(cantidadInput?.value);
         // console.log(withComodin);
@@ -414,7 +428,30 @@ export const StandardGenerateTool = () => {
                 </FormLabel>
                 <FormLabel fontSize={16}>
                     Comodin
+
                     <Select
+                        id="comodinInput"
+                        styles={customSelectStyles(!handleComodinSelectDisable())}
+                        isDisabled={handleComodinSelectDisable()}
+                        onChange={(e) => {
+                            const value = e && 'value' in e ? e.value : 0;
+                            setComodin(value);
+                        }}
+                        options={
+                            figures.map((f) => {
+                                return {
+                                    value: f.id,
+                                    label: f.id + " - " + f.name,
+                                };
+                            })
+                        }
+                    />
+
+
+
+
+
+                    {/* <Select
                         id="comodinInput"
                         size="sm"
                         variant="outline"
@@ -441,7 +478,7 @@ export const StandardGenerateTool = () => {
                                 </option>
                             );
                         })}
-                    </Select>
+                    </Select> */}
                 </FormLabel>
                 <Button
                     mt={4}
