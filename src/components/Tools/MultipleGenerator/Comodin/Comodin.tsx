@@ -50,7 +50,7 @@ const Comodin = (props: ComodinProps) => {
     const animatedComponents = makeAnimated();
     const initialRef = useRef(null);
     const finalRef = useRef(null);
-
+    
     const figuresSelect = fullFigures.map(fig => {
         return { value: fig.id, label: fig.id + " - " + fig.name }
     })
@@ -160,7 +160,7 @@ const Comodin = (props: ComodinProps) => {
                         <Select
 
                             //loadOptions={() => {}}
-                            isDisabled={!customComodin}
+                        isDisabled={false}
                             components={animatedComponents}
                             styles={{
 
