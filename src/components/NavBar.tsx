@@ -96,14 +96,16 @@ export const NavBar = () => {
   return (
     <Flex
       direction={{ base: "column", lg: "row" }}
+      gap={{ base: 2, lg: 0 }}
       as="header"
       position="relative"
       zIndex={5}
+      grow={1}
       display="flex"
       alignItems="center"
       justifyContent="space-between"
       w="full"
-      h={{ base: 120, lg: 70 }}
+      h={{ base: 160, lg: 70 }}
       px={{ base: 2, md: 5, xl: 62 }}
       py={{ base: 4, lg: 0 }}
 
@@ -119,7 +121,7 @@ export const NavBar = () => {
         base: "320px",
         lg: "320px"
       }}
-        >
+      >
         <Select
           styles={customSelectStyles(true)}
           options={tools.map((t: Tool) => {
@@ -135,6 +137,14 @@ export const NavBar = () => {
       </Box>
       <Flex as="section"
         gap={3}
+        wrap={{
+          base: "wrap",
+          md: "nowrap"
+        }}
+        justifyContent={{
+          base: "center",
+          md: "flex-end"
+        }}
 
       >
 

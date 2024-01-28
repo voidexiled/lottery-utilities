@@ -105,6 +105,18 @@ export const LotteryTable = memo(({
         }}
         transition="0.15s ease-out"
         boxSizing="border-box"
+        onTouchMove={(e: React.TouchEvent<HTMLLIElement>) => {
+          // Agregar lógica para manejar el evento táctil en dispositivos móviles
+          console.log(e)
+          e.preventDefault();
+          console.log("TouchStart");
+          console.log(table);
+          console.log(table.id);
+          removeTable(table.id);
+        }}
+        onTouchEnd={(e: React.TouchEvent<HTMLLIElement>) => {
+          console.log(e)
+        }}
         onContextMenu={(
           e: React.MouseEvent<HTMLLIElement>
         ) => {
