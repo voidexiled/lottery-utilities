@@ -8,7 +8,8 @@ import { createCanvas, loadImage } from "canvas";
  */
 export async function generateTableImage(
   matriz: number[][],
-  size: number 
+  size: number,
+  customComodin: { JPGDataURL: string; WEBPDataURL: string }
 ) {
   const canvasWidth: number = 800;
   const canvasHeight: number = 1200;
@@ -18,26 +19,25 @@ export async function generateTableImage(
 
   const canvas = createCanvas(canvasWidth, canvasHeight);
   const ctx = canvas.getContext("2d");
-  ctx.quality = "fast"
-
-
+  ctx.quality = "fast";
 
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-  const imagesSrc = matriz
-    .flat()
-    .map((figureId) => `figures/${figureId}.jpg`);
+  const imagesSrc = matriz.flat().map((figureId) => `figures/${figureId}.jpg`);
 
   let currentX = 0;
   let currentY = 0;
 
   for (let index = 0; index < matriz.flat().length; index++) {
     const figure = matriz.flat()[index];
-    const src = imagesSrc[imagesSrc.indexOf(`figures/${figure}.jpg`)];
+    let src = imagesSrc[imagesSrc.indexOf(`figures/${figure}.jpg`)];
+    console.log(index);
+    if (figure === 55) {
+      src = customComodin.WEBPDataURL;
+    }
 
     const img = await loadImage(src);
-
 
     ctx.drawImage(img, currentX, currentY, imgWidth, imgHeight);
 
@@ -54,9 +54,13 @@ export async function generateTableImage(
   return canvas;
 }
 
-export async function getURLImage (matrix: number[][], size: number)  {
-  const url = generateTableImage(matrix, size).then((canvas) => {
+export async function getURLImage(
+  matrix: number[][],
+  size: number,
+  customComodin: { JPGDataURL: string; WEBPDataURL: string }
+) {
+  const url = generateTableImage(matrix, size, customComodin).then((canvas) => {
     return canvas.toDataURL("image/jpeg", 0.5);
-  })
+  });
   return url;
 }

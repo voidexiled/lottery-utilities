@@ -24,6 +24,7 @@ import { useRef, useState } from "react";
 import { useFigureStore } from "../../../../store/figures";
 import { handleGenerateSetTablas } from "./lib";
 import { useTablesStore } from "../../../../store/tables";
+import { useComodinStore } from "../../../../store/comodin";
 interface SetsNProps {
     disclose: {
         isOpen: boolean;
@@ -37,6 +38,7 @@ interface SetsNProps {
 }
 
 const SetsN = (props: SetsNProps) => {
+    const { comodin: customComodin } = useComodinStore((state) => state);
     const { tables, setTables } = useTablesStore((state) => state);
     const { figures } = useFigureStore((state) => state);
     const toast = useToast();
@@ -167,7 +169,7 @@ const SetsN = (props: SetsNProps) => {
                         mr={3}
                         size="sm"
                         onClick={() => {
-                            const res = handleGenerateSetTablas({ setTables, figures, withoutComodin, tables });
+                            const res = handleGenerateSetTablas({ setTables, figures, withoutComodin, tables, customComodin });
                             toast.promise(res, {
                                 loading: { title: "Generando tablas...", description: "Espera un momento..." },
                                 success: { title: "Tablas generadas!", description: "Se han generado correctamente", duration: 700, isClosable: true },

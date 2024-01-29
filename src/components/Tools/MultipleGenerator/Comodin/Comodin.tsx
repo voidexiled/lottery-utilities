@@ -27,6 +27,7 @@ import { getURLImage } from "../../../../features/images/generateTableImage";
 import { generateRandomMatrix } from "../../../../features/tables/generateRandomMatrix";
 import { putComodin, putDoubleComodin } from "../../../../features/images/tableUtils";
 import { customSelectStyles } from "../../../Reusable/styles/SelectStyles";
+import { useComodinStore } from "../../../../store/comodin";
 interface ComodinProps {
     disclose: {
         isOpen: boolean;
@@ -46,6 +47,7 @@ const Comodin = (props: ComodinProps) => {
 
     const { fullFigures } = useFigureStore((state) => state);
     const { tables, setTables } = useTablesStore((state) => state);
+    const { comodin: customComodinStore } = useComodinStore((state) => state);
 
     const toast = useToast();
     const animatedComponents = makeAnimated();
@@ -85,7 +87,7 @@ const Comodin = (props: ComodinProps) => {
                 date: new Date().toISOString(),
                 comodin: id,
                 size: size,
-                dataURL: await getURLImage(newArray, size),
+                dataURL: await getURLImage(newArray, size, customComodinStore),
             };
             console.log(id);
             comodinTables.push(table);

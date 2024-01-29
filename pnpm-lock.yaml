@@ -56,6 +56,9 @@ dependencies:
   sharp:
     specifier: ^0.32.6
     version: 0.32.6
+  use-file-picker:
+    specifier: ^2.1.1
+    version: 2.1.1(react@18.2.0)
   zustand:
     specifier: ^4.4.3
     version: 4.4.3(@types/react@18.2.25)(react@18.2.0)
@@ -2641,6 +2644,13 @@ packages:
       flat-cache: 3.1.1
     dev: true
 
+  /file-selector@0.2.4:
+    resolution: {integrity: sha512-ZDsQNbrv6qRi1YTDOEWzf5J2KjZ9KMI1Q2SGeTkCJmNNW25Jg4TW4UMcmoqcg4WrAyKRcpBXdbWRxkfrOzVRbA==}
+    engines: {node: '>= 10'}
+    dependencies:
+      tslib: 2.6.2
+    dev: false
+
   /fill-range@7.0.1:
     resolution: {integrity: sha512-qOo9F+dMUmC2Lcb4BbVvnKJxTPjCm+RRpe4gDuGrzkL7mEVl/djYSu2OdQ2Pa302N4oqkSg9ir6jaLWJ2USVpQ==}
     engines: {node: '>=8'}
@@ -3921,6 +3931,16 @@ packages:
       '@types/react': 18.2.25
       react: 18.2.0
       tslib: 2.6.2
+    dev: false
+
+  /use-file-picker@2.1.1(react@18.2.0):
+    resolution: {integrity: sha512-IhKUL7pVL5m0D/1zM5vgAyamkpiMfSQYg16+P7OpYEp1zTkhdX6jSsWr3kbbrfvPjSxkyaPy3lbCSyOslz9PNg==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=16'
+    dependencies:
+      file-selector: 0.2.4
+      react: 18.2.0
     dev: false
 
   /use-isomorphic-layout-effect@1.1.2(@types/react@18.2.25)(react@18.2.0):

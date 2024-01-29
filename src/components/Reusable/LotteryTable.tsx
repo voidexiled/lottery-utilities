@@ -8,6 +8,7 @@ import { useTablesStore } from "../../store/tables";
 import { memo, useEffect, useState } from "react";
 import { Table } from "../../store/types";
 import { getURLImage } from "../../features/images/generateTableImage";
+import { useComodinStore } from "../../store/comodin";
 export const LotteryTable = memo(({
   ind,
   table,
@@ -17,6 +18,7 @@ export const LotteryTable = memo(({
   table: Table;
   thumb?: boolean;
 }) => {
+  const { comodin } = useComodinStore((state) => state);
   const { tables, selectedTable, setSelectedTable, removeTable } = useTablesStore((state) => state);
   const { modes, setMode } = useModesStore((state) => state);
   const { fullFigures, figure: getFigure } = useFigureStore((state) => state);
@@ -176,12 +178,16 @@ export const LotteryTable = memo(({
                 imageSrc?.push("thumb");
                 imageSrc?.push(img);
               }
-              //const finalSrc = imageSrc?.join("/");
 
+              //const finalSrc = imageSrc?.join("/");
+              let eSrc = figure?.src;
+              if (figure?.id === 55) {
+                eSrc = comodin.WEBPDataURL;
+              }
               return (
                 <Image
                   key={`${index}`}
-                  src={figure?.src}
+                  src={eSrc}
                   alt={figure?.name}
                   objectFit="cover"
                   border="1px solid black"
@@ -236,24 +242,29 @@ export const LotteryTable = memo(({
                 (fig) => fig.id === number
               );
               const imageSrc = figure?.src.split("/");
-              const img = imageSrc
-                ?.pop()
-                ?.replace(".webp", ".jpg");
-              if (imageSrc && img) {
-                imageSrc.pop();
-                imageSrc.push(img);
-              }
+              // const img = imageSrc
+              //   ?.pop()
+
+              // if (imageSrc && img) {
+              //   imageSrc.pop();
+              //   imageSrc.push(img);
+              // }
               const finalSrc = imageSrc?.join("/");
               const flatId = index;
 
               const pKey = `${selectedTable.id}-${index}`;
               console.info(pKey);
 
+              let eSrc = finalSrc;
+              if (figure?.id === 55) {
+                eSrc = comodin.WEBPDataURL;
+              }
+
               return (
                 <Image
                   as={motion.img}
                   key={pKey}
-                  src={finalSrc}
+                  src={eSrc}
                   alt={figure?.name}
                   objectFit="cover"
                   w="full"
@@ -311,7 +322,7 @@ export const LotteryTable = memo(({
                       });
                       console.log(tables);
 
-                      selectedTable.dataURL = await getURLImage(localTable.numbers, localTable.size);
+                      selectedTable.dataURL = await getURLImage(localTable.numbers, localTable.size, comodin);
                       selectedTable.numbers = localTable.numbers;
                     }
                   }}

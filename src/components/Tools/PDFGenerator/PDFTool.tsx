@@ -13,14 +13,17 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
+  Select,
   Text,
 } from "@chakra-ui/react";
 import { useTablesStore } from "../../../store/tables";
 import { jsPDF } from "jspdf";
+//import { useState } from "react";
+
 
 export const PDFTool = () => {
   const tables = useTablesStore((state) => state.tables);
-
+  //  const [format, setFormat] = useState("a4");
 
 
   const handleGeneratePdf = async () => {
@@ -140,6 +143,12 @@ export const PDFTool = () => {
       </Box>
 
       <FormControl as="form" m={0}>
+        <Select>
+          <option value="a4">A4</option>
+          <option value="tabloide">Tabloide</option>
+
+        </Select>
+
         <FormLabel fontSize={16} m={0} pb={8}>
           Tamaño en cm de la tabla
           <InputGroup

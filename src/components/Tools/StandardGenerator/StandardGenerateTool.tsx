@@ -6,6 +6,8 @@ import {
     Flex,
     FormControl,
     FormLabel,
+    Image,
+    List,
     NumberDecrementStepper,
     NumberIncrementStepper,
     NumberInput,
@@ -27,15 +29,49 @@ import { Table } from "../../../store/types";
 import { getURLImage } from "../../../features/images/generateTableImage";
 import Select from "react-select";
 import { customSelectStyles } from "../../Reusable/styles/SelectStyles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { putCustomComodin } from "./lib";
+import { useFilePicker } from 'use-file-picker';
+import {
+    FileAmountLimitValidator,
+    FileTypeValidator,
+    FileSizeValidator,
+    ImageDimensionsValidator,
+} from 'use-file-picker/validators';
+import { useComodinStore } from "../../../store/comodin";
 
 export const StandardGenerateTool = () => {
+    const { comodin: customComodin, setWEBP, setCustomComodin } = useComodinStore((state) => state);
+    const { openFilePicker: openFilePickerWEBP, filesContent: filesContentWEBP } = useFilePicker({
+        readAs: 'DataURL',
+        accept: 'image/webp',
+        multiple: false,
+        validators: [
+            new FileAmountLimitValidator({ max: 1 }),
+            new FileTypeValidator(['webp']),
+            new FileSizeValidator({ maxFileSize: 50 * 1024 * 1024 /* 50 MB */ }),
+            new ImageDimensionsValidator({
+                maxHeight: 1754, // in pixels
+                maxWidth: 1107,
+                minHeight: 1754,
+                minWidth: 1107,
+            }),
+        ],
+    });
+
     const { features, setFeatures } = useFeaturesStore((state) => state);
     const { figures } = useFigureStore((state) => state);
     const { tables, setTables } = useTablesStore((state) => state);
     const toast = useToast();
     const [comodin, setComodin] = useState(0);
+    const [withCustomComodin, setWithCustomComodin] = useState(false);
 
+
+    useEffect(() => {
+        if (filesContentWEBP.length > 0) {
+            setWEBP(filesContentWEBP[0].content)
+        }
+    }, [filesContentWEBP]);
 
     const handleConfig = (featureId: number) => {
         const actived = features.find((f) => f.id === featureId)
@@ -59,8 +95,6 @@ export const StandardGenerateTool = () => {
 
         setFeatures(newFeatures);
     };
-
-
 
 
     const handleGenerate = async () => {
@@ -108,6 +142,10 @@ export const StandardGenerateTool = () => {
                 matrix = putComodinIntoTable(matrix, comodin);
                 console.log(matrix);
             }
+            if (withCustomComodin) {
+                matrix = putCustomComodin(matrix);
+                console.log(matrix);
+            }
 
             const t: Table = {
                 id: lastTableIndex,
@@ -115,7 +153,7 @@ export const StandardGenerateTool = () => {
                 numbers: matrix,
                 date: new Date().toISOString(),
                 size: size,
-                dataURL: await getURLImage(matrix, size),
+                dataURL: await getURLImage(matrix, size, customComodin),
                 comodin: withComodin ? comodin : 0,
             };
             console.log(t)
@@ -306,6 +344,21 @@ export const StandardGenerateTool = () => {
                 >
                     Configuraciones
                 </Text>
+                <Box>
+                    <Button
+                        variant="outline"
+                        colorScheme="pink.500"
+                        onClick={openFilePickerWEBP}
+
+                    >Seleccionar .webp</Button>
+                    <List>
+                        {filesContentWEBP.map((file, index) => (
+                            <li key={index}>
+                                <Image h="130px" src={file.content} />
+                            </li>
+                        ))}
+                    </List>
+                </Box>
                 <CheckboxGroup
                     colorScheme="green"
                     defaultValue={features
@@ -317,6 +370,14 @@ export const StandardGenerateTool = () => {
                         direction={["column", "row"]}
                         flexWrap="wrap"
                     >
+                        <Checkbox colorScheme="messenger" textColor="messenger.500" value="Custom" onChange={() => {
+                            setWithCustomComodin(!withCustomComodin)
+                            setCustomComodin(withCustomComodin)
+                        }}>
+
+                            Custom
+
+                        </Checkbox>
                         {features.map((feature) => {
                             const disabled: boolean = handleDisabled(
                                 feature

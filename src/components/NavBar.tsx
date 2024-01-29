@@ -23,6 +23,7 @@ import { getURLImage } from "../features/images/generateTableImage";
 import Select from "react-select";
 import { customSelectStyles } from "./Reusable/styles/SelectStyles";
 import { ChangeEvent, useRef } from "react";
+import { useComodinStore } from "../store/comodin";
 //import { useFigureStore } from "../store/figures";
 
 
@@ -34,6 +35,7 @@ export const NavBar = () => {
   const finalRef = useRef(null);
 
   const toast = useToast();
+  const { comodin } = useComodinStore((state) => state);
   const { tools, setTool } = useToolsStore((state) => state);
   const { tables, removeTables, setTables } = useTablesStore((state) => state);
   //const { fullFigures } = useFigureStore((state) => state);
@@ -87,7 +89,7 @@ export const NavBar = () => {
       numbers: matrix,
       date: new Date().toISOString(),
       size: size,
-      dataURL: await getURLImage(matrix, size),
+      dataURL: await getURLImage(matrix, size, comodin),
     };
     setTables([table]);
   }
