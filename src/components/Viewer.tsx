@@ -12,9 +12,11 @@ import {
 import { useTablesStore } from "../store/tables";
 import { useEffect, useState } from "react";
 import { generateTableImage } from "../features/images/generateTableImage";
+import { useComodinStore } from "../store/comodin";
 
 
 export const Viewer = () => {
+  const { comodin: customComodin } = useComodinStore((state) => state);
   const { mode, modes, setMode } = useModesStore((state) => state);
   const { tables, selectedTable, setSelectedTable } = useTablesStore((state) => state);
   const [previousTableIdSelected, setPreviousTableIdSelected] = useState(0);
@@ -43,7 +45,7 @@ export const Viewer = () => {
   const handleDownload = async () => {
     console.log("downloading");
     if (selectedTable) {
-      await generateTableImage(selectedTable.numbers, selectedTable.size).then(
+      await generateTableImage(selectedTable.numbers, selectedTable.size, customComodin).then(
         (canvas) => {
           const url = canvas.toDataURL("image/jpeg", 0.5);
           const a = document.createElement("a");
