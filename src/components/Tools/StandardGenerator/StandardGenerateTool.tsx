@@ -40,6 +40,43 @@ import {
 } from 'use-file-picker/validators';
 import { useComodinStore } from "../../../store/comodin";
 
+const POSITIONS_4x4_SIDES = [
+    {
+        x: 1,
+        y: 0,
+    },
+    {
+        x: 2,
+        y: 0
+    },
+    {
+        x: 0,
+        y: 1,
+    },
+    {
+        x: 3,
+        y: 1,
+
+    },
+    {
+        x: 0,
+        y: 2,
+    },
+    {
+        x: 3,
+        y: 2,
+    },
+    {
+        x: 1,
+        y: 3,
+    },
+    {
+        x: 2,
+        y: 3
+    },
+]
+
+
 export const StandardGenerateTool = () => {
     const { comodin: customComodin, setWEBP, setCustomComodin } = useComodinStore((state) => state);
     const { openFilePicker: openFilePickerWEBP, filesContent: filesContentWEBP } = useFilePicker({
@@ -61,7 +98,7 @@ export const StandardGenerateTool = () => {
 
     const { features, setFeatures } = useFeaturesStore((state) => state);
     const { figures } = useFigureStore((state) => state);
-    const { tables, setTables } = useTablesStore((state) => state);
+    const { tables, setTables, removeTables } = useTablesStore((state) => state);
     const toast = useToast();
     const [comodin, setComodin] = useState(0);
     const [withCustomComodin, setWithCustomComodin] = useState(false);
@@ -72,6 +109,29 @@ export const StandardGenerateTool = () => {
             setWEBP(filesContentWEBP[0].content)
         }
     }, [filesContentWEBP]);
+
+    const handleSetSidesEmpty = async () => {
+
+        tables.forEach(async (element: Table) => {
+            const size = element.size;
+            const numbers = element.numbers;
+            const empty = 55;
+            POSITIONS_4x4_SIDES.forEach((position) => {
+                numbers[position.y][position.x] = empty;
+            });
+            let newDataUrl: string = "";
+            await getURLImage(numbers, size, customComodin).then((url) => {
+                newDataUrl = url;
+            }).finally(() => {
+                element.dataURL = newDataUrl;
+            });
+
+        });
+        const tempTables = tables;
+        removeTables();
+        setTables(tempTables);
+
+    }
 
     const handleConfig = (featureId: number) => {
         const actived = features.find((f) => f.id === featureId)
@@ -541,6 +601,23 @@ export const StandardGenerateTool = () => {
                         })}
                     </Select> */}
                 </FormLabel>
+                <Button mt={4}
+                    size="sm"
+                    w="calc(100% - 12px)"
+                    variant="outline"
+                    colorScheme="orange"
+                    onClick={() => {
+                        const res = handleSetSidesEmpty();
+                        toast.promise(res, {
+                            loading: { title: "Quitando lados...", description: "Espera un momento..." },
+                            success: { title: "Lados vaciados!", description: "Se han generado correctamente", duration: 700, isClosable: true },
+                            error: { title: "Error al editar", description: "Ha ocurrido un error.", duration: 2000, isClosable: true },
+                        })
+                    }}
+                >
+                    Lados vacios
+
+                </Button>
                 <Button
                     mt={4}
                     size="sm"
@@ -559,7 +636,9 @@ export const StandardGenerateTool = () => {
                 >
                     Generar
                 </Button>
+
+
             </FormControl>
-        </Flex>
+        </Flex >
     );
 };

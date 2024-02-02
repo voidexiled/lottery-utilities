@@ -269,9 +269,4 @@ export const FIGURES = {
     name: "La rana",
     src: "figures/thumb/54.webp",
   },
-  CUSTOM_COMODIN: {
-    id: 55,
-    name: "Comodin",
-    src: "figures/thumb/55.webp",
-  },
 };

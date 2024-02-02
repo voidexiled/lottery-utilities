@@ -169,7 +169,9 @@ const SetsN = (props: SetsNProps) => {
                         mr={3}
                         size="sm"
                         onClick={() => {
-                            const res = handleGenerateSetTablas({ setTables, figures, withoutComodin, tables, customComodin });
+                            const res = handleGenerateSetTablas({ setTables, figures, withoutComodin, tables, customComodin }).catch(e => {
+                                console.error(e)
+                            })
                             toast.promise(res, {
                                 loading: { title: "Generando tablas...", description: "Espera un momento..." },
                                 success: { title: "Tablas generadas!", description: "Se han generado correctamente", duration: 700, isClosable: true },

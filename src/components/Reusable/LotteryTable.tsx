@@ -181,7 +181,8 @@ export const LotteryTable = memo(({
 
               //const finalSrc = imageSrc?.join("/");
               let eSrc = figure?.src;
-              if (figure?.id === 55) {
+              const figureCustom: boolean = fullFigures.find(f => f.id === figure?.id) == null;
+              if (figureCustom) {
                 eSrc = comodin.WEBPDataURL;
               }
               return (
@@ -256,7 +257,8 @@ export const LotteryTable = memo(({
               console.info(pKey);
 
               let eSrc = finalSrc;
-              if (figure?.id === 55) {
+              const figureCustom: boolean = fullFigures.find(f => f.id === figure?.id) == null;
+              if (figureCustom) {
                 eSrc = comodin.WEBPDataURL;
               }
 
