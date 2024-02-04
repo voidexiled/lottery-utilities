@@ -60,6 +60,7 @@ const Comodin = (props: ComodinProps) => {
 
     const [comodin, setComodin] = useState(0);
     const [isDouble, setIsDouble] = useState(false);
+    const [centroYEsquina, setCentroYEsquina] = useState(false);
     const [customComodin, setCustomComodin] = useState(false);
     console.log(customComodin);
     const handleGenerateComodinTables = async () => {
@@ -77,7 +78,7 @@ const Comodin = (props: ComodinProps) => {
             if (!isDouble) {
                 newArray = putComodin(newArray, id);
             } else {
-                newArray = putDoubleComodin(newArray, id);
+                newArray = putDoubleComodin(newArray, id, centroYEsquina);
             }
             console.log(newArray);
             const table: Table = {
@@ -198,6 +199,16 @@ const Comodin = (props: ComodinProps) => {
                                 }}
                             >
                                 Doble comodin
+                            </Checkbox>
+                            <Checkbox
+                                mt={2}
+                                size="sm"
+                                checked={centroYEsquina}
+                                onChange={() => {
+                                    setCentroYEsquina(!centroYEsquina);
+                                }}
+                            >
+                                Centro y esquina
                             </Checkbox>
 
                         </CheckboxGroup>
