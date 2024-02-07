@@ -60,9 +60,10 @@ const Comodin = (props: ComodinProps) => {
 
     const [comodin, setComodin] = useState(0);
     const [isDouble, setIsDouble] = useState(false);
+    const [dobleCentro, setDobleCentro] = useState(false);
     const [centroYEsquina, setCentroYEsquina] = useState(false);
     const [customComodin, setCustomComodin] = useState(false);
-    console.log(customComodin);
+    // console.log(customComodin);
     const handleGenerateComodinTables = async () => {
         const figureId = comodin;
         const comodinTables: Table[] = [];
@@ -77,10 +78,12 @@ const Comodin = (props: ComodinProps) => {
             let newArray: number[][] = generateRandomMatrix(size, 1, 54, id);
             if (!isDouble) {
                 newArray = putComodin(newArray, id);
+                console.log("Single");
             } else {
-                newArray = putDoubleComodin(newArray, id, centroYEsquina);
+                newArray = putDoubleComodin(newArray, id, centroYEsquina, dobleCentro);
+                console.log("Doble");
             }
-            console.log(newArray);
+            // console.log(newArray);
             const table: Table = {
                 id: tableIndex,
                 name: `Table${tableIndex}`,
@@ -209,6 +212,16 @@ const Comodin = (props: ComodinProps) => {
                                 }}
                             >
                                 Centro y esquina
+                            </Checkbox>
+                            <Checkbox
+                                mt={2}
+                                size="sm"
+                                checked={dobleCentro}
+                                onChange={() => {
+                                    setDobleCentro(!dobleCentro);
+                                }}
+                            >
+                                Doble centro diagonal
                             </Checkbox>
 
                         </CheckboxGroup>

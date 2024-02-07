@@ -23,7 +23,8 @@ export const putComodin = (
 export const putDoubleComodin = (
   _array: number[][],
   figureId: number,
-  cye: boolean
+  cye: boolean,
+  dC: boolean
 ) => {
   const tableWithComodin = _array;
 
@@ -55,24 +56,40 @@ export const putDoubleComodin = (
     place1 = getRandomEdge();
     place2 = getCenter();
   } else {
-    const pos1 = {
-      x: getRandom(0, _array.length - 1),
-      y: getRandom(0, _array.length - 1),
-    };
-    let pos2 = {
-      x: getRandom(0, _array.length - 1),
-      y: getRandom(0, _array.length - 1),
-    };
-    console.info("Position 1: ", pos1);
-    console.info("Position 2: ", pos2);
-    while (pos2.x == pos1.x && pos2.y == pos1.y) {
-      pos2 = {
+    if (dC) {
+      const pos1 = {
+        x: getRandom(1, 2),
+        y: 1,
+      };
+      const pos2 = {
+        x: pos1.x == 1 ? 2 : 1,
+        y: 2,
+      };
+      console.log("position 1: ", pos1);
+      console.log("position 2: ", pos2);
+      place1 = pos1;
+      place2 = pos2;
+    } else {
+      const pos1 = {
         x: getRandom(0, _array.length - 1),
         y: getRandom(0, _array.length - 1),
       };
+      let pos2 = {
+        x: getRandom(0, _array.length - 1),
+        y: getRandom(0, _array.length - 1),
+      };
+      console.info("Position 1: ", pos1);
+      console.info("Position 2: ", pos2);
+      while (pos2.x == pos1.x && pos2.y == pos1.y) {
+        pos2 = {
+          x: getRandom(0, _array.length - 1),
+          y: getRandom(0, _array.length - 1),
+        };
+      }
+
+      place1 = pos1;
+      place2 = pos2;
     }
-    place1 = pos1;
-    place2 = pos2;
   }
 
   tableWithComodin[place1.x][place1.y] = figureId;
