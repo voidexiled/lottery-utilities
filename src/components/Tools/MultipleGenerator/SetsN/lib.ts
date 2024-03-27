@@ -110,10 +110,18 @@ const generateTables = async (
       }
     }
 
-    const tempArray: Figure[] = getTempArray(oldArray, minLengthArray);
+    const tempArray: Figure[] = shuffleArray(
+      getTempArray(oldArray, minLengthArray)
+    );
     const unsortedArray: Figure[] = shuffleArray(tempArray);
     const numbersMatrix = unsortedArray.map((f) => f.id);
     const newArray: number[][] = createNewArray(numbersMatrix, size);
+    console.log("---------------");
+    console.log(tempArray);
+    console.log(unsortedArray);
+    console.log(numbersMatrix);
+    console.log(newArray);
+    console.log("---------------");
 
     const table: Table = {
       id: lastTableIndex,

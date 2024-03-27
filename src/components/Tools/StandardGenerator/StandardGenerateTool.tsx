@@ -258,6 +258,8 @@ export const StandardGenerateTool = () => {
             } else {
                 return putComodinRandomly(table, comodin);
             }
+        } else {
+            return putComodinRandomly(table, comodin);
         }
 
         return table;
@@ -279,7 +281,7 @@ export const StandardGenerateTool = () => {
             );
             //return { x: row, y: column };
             console.log(row, column);
-            return { x: 2, y: 0 };
+            return { x: column, y: row };
         };
         const place: { x: number; y: number } = randomPlace();
         tableWithComodin[place.x][place.y] = comodin;
